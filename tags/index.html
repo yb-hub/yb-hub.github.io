@@ -604,14 +604,15 @@
   <div id="gitalk-container"></div>
   <script type="text/javascript">
     var gitalk = new Gitalk({
-      client_id: '9001e50efd1e3dd5e3c4',
-      client_secret: '8a2e9aecd4f201345d1a6af281db73c65cb482c8',
+      clientID: '9001e50efd1e3dd5e3c4',
+      clientSecret: '8a2e9aecd4f201345d1a6af281db73c65cb482c8',
       repo: 'blogComment',
-      github_id: 'yb-hub',
+      owner: 'yb-hub',
       admin_user: ['yb-hub'],
       id: location.pathname,
       distraction_free_mode: 'true'
     })
+	console.log(gitalk)
     gitalk.render('gitalk-container')
   </script>
 
