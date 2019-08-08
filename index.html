@@ -11,21 +11,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/yingmu-32.ico?v=7.3.0">
-  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/yingmu-32.ico?v=7.3.0">
-  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/yingmu-16.ico?v=7.3.0">
-  <link rel="mask-icon" href="/blog/images/logo.svg?v=7.3.0" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/yingmu-32.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/yingmu-32.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/yingmu-16.ico?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
 
-<link rel="stylesheet" href="/blog/css/main.css?v=7.3.0">
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
 
 
-<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
 
 
 <script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/blog/',
+    root: '/',
     scheme: 'Gemini',
     version: '7.3.0',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
@@ -127,7 +127,7 @@
   <div class="site-meta">
 
     <div class="custom-logo-site-title">
-      <a href="/blog/" class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -156,7 +156,7 @@
       
     
 
-    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
 
   </li>
       
@@ -167,7 +167,7 @@
       
     
 
-    <a href="/blog/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
 
   </li>
       
@@ -178,7 +178,7 @@
       
     
 
-    <a href="/blog/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
 
   </li>
       
@@ -189,7 +189,7 @@
       
     
 
-    <a href="/blog/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
 
   </li>
       
@@ -200,7 +200,7 @@
       
     
 
-    <a href="/blog/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>归档</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>归档</a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -256,12 +256,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://http://ybhub.gitee.io/blog/2019/08/07/Servlet/">
+    <link itemprop="mainEntityOfPage" href="https://http://ybhub.gitee.io/2019/08/07/Servlet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="麻辣香锅不要辣">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -272,7 +272,7 @@
         
           <h1 class="post-title" itemprop="name headline">
               
-              <a href="/blog/2019/08/07/Servlet/" class="post-title-link" itemprop="url">Servlet</a>
+              <a href="/2019/08/07/Servlet/" class="post-title-link" itemprop="url">Servlet</a>
             
           </h1>
         
@@ -302,7 +302,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/JavaEE/" itemprop="url" rel="index"><span itemprop="name">JavaEE</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaEE/" itemprop="url" rel="index"><span itemprop="name">JavaEE</span></a></span>
 
                 
                 
@@ -348,11 +348,11 @@
       
         
           <h3 id="概念及原理"><a href="#概念及原理" class="headerlink" title="概念及原理"></a>概念及原理</h3><p>概念：Servlet（server applet）就是运行在服务器端的小程序，Servlet是一个接口，定义了Java类被浏览器访问到（Tomcat识别）的规则。<br>原理：<br>1.当服务器接收到客户端浏览器的请求后，会解析请求url的路径，获取访问的Servlet的资源路径<br>2.查找web.xml文件，是否有对应的<url-pattern><br>3.有的话，tomcat会根据对应的<servlet-class>的全类名，将字节码文件加载进内存，并且创建其对象<br>4.调用其方法</servlet-class></url-pattern></p>
-<img src="/blog/2019/08/07/Servlet/servlet.png">
+<img src="/2019/08/07/Servlet/servlet.png">
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/blog/2019/08/07/Servlet/#more" rel="contents">
+              <a class="btn" href="/2019/08/07/Servlet/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -412,7 +412,7 @@
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image"
-      src="/blog/images/avatar.jpg"
+      src="/images/avatar.jpg"
       alt="麻辣香锅不要辣">
   <p class="site-author-name" itemprop="name">麻辣香锅不要辣</p>
   <div class="site-description motion-element" itemprop="description"></div>
@@ -420,7 +420,7 @@
   <nav class="site-state motion-element">
       <div class="site-state-item site-state-posts">
         
-          <a href="/blog/archives/">
+          <a href="/archives/">
         
           <span class="site-state-item-count">1</span>
           <span class="site-state-item-name">日志</span>
@@ -432,7 +432,7 @@
       <div class="site-state-item site-state-categories">
         
           
-            <a href="/blog/categories/">
+            <a href="/categories/">
           
         
         
@@ -449,7 +449,7 @@
       <div class="site-state-item site-state-tags">
         
           
-            <a href="/blog/tags/">
+            <a href="/tags/">
           
         
         
@@ -593,20 +593,20 @@
   </div>
 
   
-  <script src="/blog/lib/jquery/index.js?v=3.4.1"></script>
-  <script src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  <script src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
-<script src="/blog/js/utils.js?v=7.3.0"></script>
-  <script src="/blog/js/motion.js?v=7.3.0"></script>
-
-
-  <script src="/blog/js/affix.js?v=7.3.0"></script>
-  <script src="/blog/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
 
 
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
 
-<script src="/blog/js/next-boot.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
 
 
 
@@ -629,7 +629,7 @@
 
 
 
-  <script src="/blog/js/local-search.js?v=7.3.0"></script>
+  <script src="/js/local-search.js?v=7.3.0"></script>
 
 
 
@@ -672,7 +672,7 @@
 
   
     
-<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/blog/live2dw/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
 </html>
 <!-- ҳ����С���� -->
 <script type="text/javascript" src="/js/myjs/love.js"></script>
