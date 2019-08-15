@@ -403,7 +403,7 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringAopTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test1</span><span class="params">(String test)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"test1......"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"test1"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span> <span class="keyword">throws</span> RuntimeException</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"test2......"</span>);</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"test2 exception"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="结果（around和其他的分开调试）"><a href="#结果（around和其他的分开调试）" class="headerlink" title="结果（around和其他的分开调试）"></a>结果（around和其他的分开调试）</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">before <span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>.</span><br><span class="line">test:hello world</span><br><span class="line">test1<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span></span><br><span class="line">After <span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>.</span><br><span class="line">AfterReturning<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span></span><br><span class="line"></span><br><span class="line">test2<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span></span><br><span class="line">After <span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>.</span><br><span class="line">AfterThrowing<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span></span><br><span class="line">AfterThrowing：test2 exception</span><br></pre></td></tr></table></figure>
+<h3 id="结果（around和其他的分开调试）"><a href="#结果（around和其他的分开调试）" class="headerlink" title="结果（around和其他的分开调试）"></a>结果（around和其他的分开调试）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">before .......</span><br><span class="line">test:hello world</span><br><span class="line">test1......</span><br><span class="line">After .......</span><br><span class="line">AfterReturning......</span><br><span class="line"></span><br><span class="line">test2......</span><br><span class="line">After .......</span><br><span class="line">AfterThrowing......</span><br><span class="line">AfterThrowing：test2 exception</span><br></pre></td></tr></table></figure>
 
 <h2 id="引入（Introductions）"><a href="#引入（Introductions）" class="headerlink" title="引入（Introductions）"></a>引入（Introductions）</h2><p>前面描述的几种增强(Advice)都是在目标方法范围内织入，而引介(Introduction)不同，直接在类级别上添加目标未实现的接口方法。<br>根据官方文档的介绍：您可以使用@DeclareParents注解进行介绍。此注解用于声明匹配类型具有新父级</p>
 <h3 id="声明一个接口，和一个实现类"><a href="#声明一个接口，和一个实现类" class="headerlink" title="声明一个接口，和一个实现类"></a>声明一个接口，和一个实现类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SayHello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">SayHello</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -560,7 +560,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -579,7 +579,11 @@
         
           
         
-        <span class="site-state-item-count">2</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -604,7 +608,9 @@
         
           
         
-        <span class="site-state-item-count">5</span>
+          
+        
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -681,8 +687,8 @@
         <span class="post-meta-item-text">站点总字数：</span>
       
   	<span title="post.totalcount">
-       4.9k字</span>
-      <!--<span title="站点总字数">27k</span>-->
+       5.8k字</span>
+      <!--<span title="站点总字数">32k</span>-->
     
 <span id="sitetime"></span>
 <script language=javascript>
