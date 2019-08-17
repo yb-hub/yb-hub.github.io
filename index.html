@@ -256,6 +256,140 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://http://ybhub.gitee.io/2019/08/17/springboot-ErrorMvcAutoConfiguration/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="麻辣香锅不要辣">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/2019/08/17/springboot-ErrorMvcAutoConfiguration/" class="post-title-link" itemprop="url">SpringBoot自动装配--ErrorMvcAutoConfiguration</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-17 16:19:15 / 修改时间：19:52:52" itemprop="dateCreated datePublished" datetime="2019-08-17T16:19:15+08:00">2019-08-17</time>
+            </span>
+          
+            
+
+            
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>7.1k</span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Springboot项目在启动的时候，会自动装配一些常用的配置类（xxxAuoConfiguration），今天就来看一下和error有关的自动装配</p>
+<h2 id="ErrorMvcAutoConfiguration"><a href="#ErrorMvcAutoConfiguration" class="headerlink" title="ErrorMvcAutoConfiguration"></a>ErrorMvcAutoConfiguration</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ConditionalOnWebApplication</span>(type = Type.SERVLET)</span><br><span class="line"><span class="meta">@ConditionalOnClass</span>(&#123; Servlet.class, DispatcherServlet.class &#125;)</span><br><span class="line"><span class="comment">// Load before the main WebMvcAutoConfiguration so that the error View is available</span></span><br><span class="line"><span class="meta">@AutoConfigureBefore</span>(WebMvcAutoConfiguration.class)</span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(&#123; ServerProperties.class, ResourceProperties.class &#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ErrorMvcAutoConfiguration</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/08/17/springboot-ErrorMvcAutoConfiguration/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+
+    
+    
+    
+<div>
+    
+ </div>
+      
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://http://ybhub.gitee.io/2019/08/15/Mybatis-参数处理过程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -288,7 +422,7 @@
                 
               
 
-              <time title="创建时间：2019-08-15 08:15:12 / 修改时间：08:21:11" itemprop="dateCreated datePublished" datetime="2019-08-15T08:15:12+08:00">2019-08-15</time>
+              <time title="创建时间：2019-08-15 08:15:12 / 修改时间：08:25:19" itemprop="dateCreated datePublished" datetime="2019-08-15T08:15:12+08:00">2019-08-15</time>
             </span>
           
             
@@ -347,30 +481,16 @@
 
       
         
+          <h2 id="Mybatis参数处理过程"><a href="#Mybatis参数处理过程" class="headerlink" title="Mybatis参数处理过程"></a>Mybatis参数处理过程</h2><h3 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MybatisTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SqlSessionFactory <span class="title">getSqlSessionFactory</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        String resource = <span class="string">"mybatisconfig.xml"</span>;</span><br><span class="line">        InputStream inputStream = Resources.getResourceAsStream(resource);</span><br><span class="line">        SqlSessionFactory sqlSessionFactory = <span class="keyword">new</span> SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">        <span class="keyword">return</span> sqlSessionFactory;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();</span><br><span class="line">        SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">        TestMapper mapper = sqlSession.getMapper(TestMapper.class);</span><br><span class="line">        User user = mapper.selectUserById(<span class="number">20</span>);</span><br><span class="line">        System.out.println(user);</span><br><span class="line"></span><br><span class="line">        List&lt;User&gt; userList = mapper.selectUserByNameAndId(<span class="number">20</span>, <span class="string">"测试员一号"</span>);</span><br><span class="line">        System.out.println(userList);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
           
-            <h2 id="Mybatis参数处理过程"><a href="#Mybatis参数处理过程" class="headerlink" title="Mybatis参数处理过程"></a>Mybatis参数处理过程</h2><h3 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MybatisTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SqlSessionFactory <span class="title">getSqlSessionFactory</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        String resource = <span class="string">"mybatisconfig.xml"</span>;</span><br><span class="line">        InputStream inputStream = Resources.getResourceAsStream(resource);</span><br><span class="line">        SqlSessionFactory sqlSessionFactory = <span class="keyword">new</span> SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">        <span class="keyword">return</span> sqlSessionFactory;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();</span><br><span class="line">        SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">        TestMapper mapper = sqlSession.getMapper(TestMapper.class);</span><br><span class="line">        User user = mapper.selectUserById(<span class="number">20</span>);</span><br><span class="line">        System.out.println(user);</span><br><span class="line"></span><br><span class="line">        List&lt;User&gt; userList = mapper.selectUserByNameAndId(<span class="number">20</span>, <span class="string">"测试员一号"</span>);</span><br><span class="line">        System.out.println(userList);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="mapper"><a href="#mapper" class="headerlink" title="mapper"></a>mapper</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TestMapper</span> </span>&#123;</span><br><span class="line">     <span class="function">User <span class="title">selectUserById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line">    <span class="function">List&lt;User&gt; <span class="title">selectUserByNameAndId</span><span class="params">(@Param(<span class="string">"id"</span>)</span> <span class="keyword">int</span> id,@<span class="title">Param</span><span class="params">(<span class="string">"name"</span>)</span> String name)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="mapper映射"><a href="#mapper映射" class="headerlink" title="mapper映射"></a>mapper映射</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span> ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC <span class="string">"-//mybatis.org//DTD Mapper 3.0//EN"</span></span><br><span class="line">        <span class="string">"http://mybatis.org/dtd/mybatis-3-mapper.dtd"</span>&gt;</span><br><span class="line">&lt;mapper namespace=<span class="string">"com.yb.mapper.TestMapper"</span>&gt;</span><br><span class="line">    &lt;select id=<span class="string">"selectUserById"</span> resultType=<span class="string">"com.yb.model.User"</span>&gt;</span><br><span class="line">    select * from User where id = #&#123;id&#125;</span><br><span class="line">  &lt;/select&gt;</span><br><span class="line">    &lt;select id=<span class="string">"selectUserByNameAndId"</span> resultType=<span class="string">"com.yb.model.User"</span>&gt;</span><br><span class="line">        select * from USER where id = #&#123;id&#125; and realname = #&#123;name&#125;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (Object.class.equals(method.getDeclaringClass())) &#123;</span><br><span class="line">        <span class="keyword">return</span> method.invoke(<span class="keyword">this</span>, args);</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isDefaultMethod(method)) &#123;</span><br><span class="line">        <span class="keyword">return</span> invokeDefaultMethod(proxy, method, args);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">      <span class="keyword">throw</span> ExceptionUtil.unwrapThrowable(t);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">final</span> MapperMethod mapperMethod = cachedMapperMethod(method);</span><br><span class="line">    <span class="keyword">return</span> mapperMethod.execute(sqlSession, args);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>代理对象（MapperProxy）调用invoke（）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">getNamedParams</span><span class="params">(Object[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> paramCount = names.size();</span><br><span class="line">    <span class="comment">//如果没有参数，直接返回null</span></span><br><span class="line">    <span class="keyword">if</span> (args == <span class="keyword">null</span> || paramCount == <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果只有一个参数，而且没有用@Param注解，就直接返回</span></span><br><span class="line">    <span class="comment">//因为names.firstKey() = 0</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (!hasParamAnnotation &amp;&amp; paramCount == <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> args[names.firstKey()];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//当有多个参数时</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">//创建一个map来存储参数</span></span><br><span class="line">      <span class="keyword">final</span> Map&lt;String, Object&gt; param = <span class="keyword">new</span> ParamMap&lt;Object&gt;();</span><br><span class="line">      <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">      <span class="comment">//遍历names</span></span><br><span class="line">      <span class="keyword">for</span> (Map.Entry&lt;Integer, String&gt; entry : names.entrySet()) &#123;</span><br><span class="line">      <span class="comment">//把name中的Value作为key,把name中的key作为args的索引</span></span><br><span class="line">      <span class="comment">//比如name=&#123;"0":"arg0"&#125;,那么arg0就是map的key,0为args的索引</span></span><br><span class="line">        param.put(entry.getValue(), args[entry.getKey()]);</span><br><span class="line">        <span class="comment">// add generic param names (param1, param2, ...)</span></span><br><span class="line">        <span class="comment">//创建默认的key：Param1,Param2...</span></span><br><span class="line">        <span class="keyword">final</span> String genericParamName = GENERIC_NAME_PREFIX + String.valueOf(i + <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// ensure not to overwrite parameter named with @Param</span></span><br><span class="line">        <span class="keyword">if</span> (!names.containsValue(genericParamName)) &#123;</span><br><span class="line">          param.put(genericParamName, args[entry.getKey()]);</span><br><span class="line">        &#125;</span><br><span class="line">        i++;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> param;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里是进行参数的处理，其中names是一个map：{“0”=arg0},它是在构造函数中初始化的。代码如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ParamNameResolver</span><span class="params">(Configuration config, Method method)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//获取所有参数</span></span><br><span class="line">    <span class="keyword">final</span> Class&lt;?&gt;[] paramTypes = method.getParameterTypes();</span><br><span class="line">    <span class="comment">//获取参数注解</span></span><br><span class="line">    <span class="keyword">final</span> Annotation[][] paramAnnotations = method.getParameterAnnotations();</span><br><span class="line">    <span class="keyword">final</span> SortedMap&lt;Integer, String&gt; map = <span class="keyword">new</span> TreeMap&lt;Integer, String&gt;();</span><br><span class="line">    <span class="keyword">int</span> paramCount = paramAnnotations.length;</span><br><span class="line">    <span class="comment">// get names from @Param annotations</span></span><br><span class="line">    <span class="comment">//遍历paramAnnotations，将带@Param注解的参数的值赋给name</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> paramIndex = <span class="number">0</span>; paramIndex &lt; paramCount; paramIndex++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (isSpecialParameter(paramTypes[paramIndex])) &#123;</span><br><span class="line">        <span class="comment">// skip special parameters</span></span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      String name = <span class="keyword">null</span>;</span><br><span class="line">      <span class="keyword">for</span> (Annotation annotation : paramAnnotations[paramIndex]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (annotation <span class="keyword">instanceof</span> Param) &#123;</span><br><span class="line">          hasParamAnnotation = <span class="keyword">true</span>;</span><br><span class="line">          name = ((Param) annotation).value();</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (name == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// @Param was not specified.</span></span><br><span class="line">        <span class="keyword">if</span> (config.isUseActualParamName()) &#123;</span><br><span class="line">          name = getActualParamName(method, paramIndex);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (name == <span class="keyword">null</span>) &#123;</span><br><span class="line">          <span class="comment">// use the parameter index as the name ("0", "1", ...)</span></span><br><span class="line">          <span class="comment">// gcode issue #71</span></span><br><span class="line">          name = String.valueOf(map.size());</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//用map保存name</span></span><br><span class="line">      map.put(paramIndex, name);</span><br><span class="line">    &#125;</span><br><span class="line">    names = Collections.unmodifiableSortedMap(map);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>当参数没有@Param注解时，names = {“0”=arg0,”1”=arg1,”2”=arg2…}<br>当参数有@Param注解时，names = {“0”=参数值1,”1”=参数值2…}<br>两个都有时，names = {“0”=arg0,”1”=arg1,”2”=参数值2..}<br>得到了names之后，就继续看getNamedParams</p>
-<ul>
-<li>没有参数，直接返回null</li>
-<li>如果只有一个参数，而且没有用@Param注解，就直接返回</li>
-<li>多个参数，最终结果如下<br>param={“arg0”=参数值1,”arg1”=参数值2，”param1” = 参数值1,”param2” = 参数值2} （这是不带@Param注解的）<br>param={“@Param的value值1”=参数值1,”@Param的value值2”=参数值2，”param1” = 参数值1,”param2” = 参数值2} （这是带@Param注解的）</li>
-</ul>
-<p>所以当有多个参数时，mapper映射文件中就不可以直接用#{}来获取参数，因为参数都被封装为一个map了,需要根据封装后的map的key来获取参数</p>
-
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/08/15/Mybatis-参数处理过程/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
           
+          <!--/noindex-->
         
       
     </div>
@@ -1094,7 +1214,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1117,7 +1237,9 @@
         
           
         
-        <span class="site-state-item-count">4</span>
+          
+        
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -1144,7 +1266,11 @@
         
           
         
-        <span class="site-state-item-count">6</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -1204,8 +1330,8 @@
         <span class="post-meta-item-text">站点总字数：</span>
       
   	<span title="post.totalcount">
-       5.8k字</span>
-      <!--<span title="站点总字数">32k</span>-->
+       6.8k字</span>
+      <!--<span title="站点总字数">39k</span>-->
     
 <span id="sitetime"></span>
 <script language=javascript>

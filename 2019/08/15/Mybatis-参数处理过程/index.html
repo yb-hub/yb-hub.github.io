@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="Mybatis参数处理过程测试类12345678910111213141516171819202122public class MybatisTest &amp;#123;    public SqlSessionFactory getSqlSessionFactory() throws IOException &amp;#123;        String resource = &quot;mybatisconfig.">
+  <meta name="description" content="Mybatis参数处理过程测试类123456789101112131415161718192021public class MybatisTest &amp;#123;    public SqlSessionFactory getSqlSessionFactory() throws IOException &amp;#123;        String resource = &quot;mybatisconfig.xm">
 <meta name="keywords" content="Mybatis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mybatis_参数处理过程">
 <meta property="og:url" content="https://http://ybhub.gitee.io/2019/08/15/Mybatis-参数处理过程/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="Mybatis参数处理过程测试类12345678910111213141516171819202122public class MybatisTest &amp;#123;    public SqlSessionFactory getSqlSessionFactory() throws IOException &amp;#123;        String resource = &quot;mybatisconfig.">
+<meta property="og:description" content="Mybatis参数处理过程测试类123456789101112131415161718192021public class MybatisTest &amp;#123;    public SqlSessionFactory getSqlSessionFactory() throws IOException &amp;#123;        String resource = &quot;mybatisconfig.xm">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-15T00:21:11.549Z">
+<meta property="og:updated_time" content="2019-08-15T00:25:19.975Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mybatis_参数处理过程">
-<meta name="twitter:description" content="Mybatis参数处理过程测试类12345678910111213141516171819202122public class MybatisTest &amp;#123;    public SqlSessionFactory getSqlSessionFactory() throws IOException &amp;#123;        String resource = &quot;mybatisconfig.">
+<meta name="twitter:description" content="Mybatis参数处理过程测试类123456789101112131415161718192021public class MybatisTest &amp;#123;    public SqlSessionFactory getSqlSessionFactory() throws IOException &amp;#123;        String resource = &quot;mybatisconfig.xm">
   <link rel="canonical" href="https://http://ybhub.gitee.io/2019/08/15/Mybatis-参数处理过程/">
 
 
@@ -293,7 +293,7 @@
                 
               
 
-              <time title="创建时间：2019-08-15 08:15:12 / 修改时间：08:21:11" itemprop="dateCreated datePublished" datetime="2019-08-15T08:15:12+08:00">2019-08-15</time>
+              <time title="创建时间：2019-08-15 08:15:12 / 修改时间：08:25:19" itemprop="dateCreated datePublished" datetime="2019-08-15T08:15:12+08:00">2019-08-15</time>
             </span>
           
             
@@ -360,8 +360,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Mybatis参数处理过程"><a href="#Mybatis参数处理过程" class="headerlink" title="Mybatis参数处理过程"></a>Mybatis参数处理过程</h2><h3 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MybatisTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SqlSessionFactory <span class="title">getSqlSessionFactory</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        String resource = <span class="string">"mybatisconfig.xml"</span>;</span><br><span class="line">        InputStream inputStream = Resources.getResourceAsStream(resource);</span><br><span class="line">        SqlSessionFactory sqlSessionFactory = <span class="keyword">new</span> SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">        <span class="keyword">return</span> sqlSessionFactory;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();</span><br><span class="line">        SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">        TestMapper mapper = sqlSession.getMapper(TestMapper.class);</span><br><span class="line">        User user = mapper.selectUserById(<span class="number">20</span>);</span><br><span class="line">        System.out.println(user);</span><br><span class="line"></span><br><span class="line">        List&lt;User&gt; userList = mapper.selectUserByNameAndId(<span class="number">20</span>, <span class="string">"测试员一号"</span>);</span><br><span class="line">        System.out.println(userList);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="Mybatis参数处理过程"><a href="#Mybatis参数处理过程" class="headerlink" title="Mybatis参数处理过程"></a>Mybatis参数处理过程</h2><h3 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MybatisTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SqlSessionFactory <span class="title">getSqlSessionFactory</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        String resource = <span class="string">"mybatisconfig.xml"</span>;</span><br><span class="line">        InputStream inputStream = Resources.getResourceAsStream(resource);</span><br><span class="line">        SqlSessionFactory sqlSessionFactory = <span class="keyword">new</span> SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">        <span class="keyword">return</span> sqlSessionFactory;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();</span><br><span class="line">        SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">        TestMapper mapper = sqlSession.getMapper(TestMapper.class);</span><br><span class="line">        User user = mapper.selectUserById(<span class="number">20</span>);</span><br><span class="line">        System.out.println(user);</span><br><span class="line"></span><br><span class="line">        List&lt;User&gt; userList = mapper.selectUserByNameAndId(<span class="number">20</span>, <span class="string">"测试员一号"</span>);</span><br><span class="line">        System.out.println(userList);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<a id="more"></a>
 <h3 id="mapper"><a href="#mapper" class="headerlink" title="mapper"></a>mapper</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TestMapper</span> </span>&#123;</span><br><span class="line">     <span class="function">User <span class="title">selectUserById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line">    <span class="function">List&lt;User&gt; <span class="title">selectUserByNameAndId</span><span class="params">(@Param(<span class="string">"id"</span>)</span> <span class="keyword">int</span> id,@<span class="title">Param</span><span class="params">(<span class="string">"name"</span>)</span> String name)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="mapper映射"><a href="#mapper映射" class="headerlink" title="mapper映射"></a>mapper映射</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span> ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC <span class="string">"-//mybatis.org//DTD Mapper 3.0//EN"</span></span><br><span class="line">        <span class="string">"http://mybatis.org/dtd/mybatis-3-mapper.dtd"</span>&gt;</span><br><span class="line">&lt;mapper namespace=<span class="string">"com.yb.mapper.TestMapper"</span>&gt;</span><br><span class="line">    &lt;select id=<span class="string">"selectUserById"</span> resultType=<span class="string">"com.yb.model.User"</span>&gt;</span><br><span class="line">    select * from User where id = #&#123;id&#125;</span><br><span class="line">  &lt;/select&gt;</span><br><span class="line">    &lt;select id=<span class="string">"selectUserByNameAndId"</span> resultType=<span class="string">"com.yb.model.User"</span>&gt;</span><br><span class="line">        select * from USER where id = #&#123;id&#125; and realname = #&#123;name&#125;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
@@ -462,6 +463,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/08/17/springboot-ErrorMvcAutoConfiguration/" rel="prev" title="SpringBoot自动装配--ErrorMvcAutoConfiguration">
+                SpringBoot自动装配--ErrorMvcAutoConfiguration <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -519,7 +524,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -542,7 +547,9 @@
         
           
         
-        <span class="site-state-item-count">4</span>
+          
+        
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -569,7 +576,11 @@
         
           
         
-        <span class="site-state-item-count">6</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -646,8 +657,8 @@
         <span class="post-meta-item-text">站点总字数：</span>
       
   	<span title="post.totalcount">
-       5.8k字</span>
-      <!--<span title="站点总字数">32k</span>-->
+       6.8k字</span>
+      <!--<span title="站点总字数">39k</span>-->
     
 <span id="sitetime"></span>
 <script language=javascript>
