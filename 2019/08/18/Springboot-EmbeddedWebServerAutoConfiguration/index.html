@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/yingmu-32.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/yingmu-32.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/yingmu-16.ico?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    save_scroll: false,
+    copycode: {"enable":true,"show_result":true,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="简介一般做Springboot项目，都是打成jar包，并且内嵌一个Servlet容器（Tomcat,jetty，undertow）,今天就了解一下有关内嵌Servlet容器的自动装配(2.0.0版本),主要是两个类EmbeddedWebServerFactoryCustomizerAutoConfiguration和ServletWebServerFactoryAutoConfiguration">
+<meta name="keywords" content="SpringBoot,自动装配">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot自动装配--嵌入式Servlet容器">
+<meta property="og:url" content="https://http://ybhub.gitee.io/2019/08/18/Springboot-EmbeddedWebServerAutoConfiguration/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="简介一般做Springboot项目，都是打成jar包，并且内嵌一个Servlet容器（Tomcat,jetty，undertow）,今天就了解一下有关内嵌Servlet容器的自动装配(2.0.0版本),主要是两个类EmbeddedWebServerFactoryCustomizerAutoConfiguration和ServletWebServerFactoryAutoConfiguration">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://http/2019/08/18/Springboot-EmbeddedWebServerAutoConfiguration/pic1.png">
+<meta property="og:image" content="https://http/2019/08/18/Springboot-EmbeddedWebServerAutoConfiguration/pic2.png">
+<meta property="og:updated_time" content="2019-08-18T06:49:22.174Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringBoot自动装配--嵌入式Servlet容器">
+<meta name="twitter:description" content="简介一般做Springboot项目，都是打成jar包，并且内嵌一个Servlet容器（Tomcat,jetty，undertow）,今天就了解一下有关内嵌Servlet容器的自动装配(2.0.0版本),主要是两个类EmbeddedWebServerFactoryCustomizerAutoConfiguration和ServletWebServerFactoryAutoConfiguration">
+<meta name="twitter:image" content="https://http/2019/08/18/Springboot-EmbeddedWebServerAutoConfiguration/pic1.png">
+  <link rel="canonical" href="https://http://ybhub.gitee.io/2019/08/18/Springboot-EmbeddedWebServerAutoConfiguration/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>SpringBoot自动装配--嵌入式Servlet容器 | Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+<div class="bg_content">
+  <canvas id="canvas"></canvas>
+</div>
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/yb-hub" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://http://ybhub.gitee.io/2019/08/18/Springboot-EmbeddedWebServerAutoConfiguration/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="麻辣香锅不要辣">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">SpringBoot自动装配--嵌入式Servlet容器
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-18 07:53:54 / 修改时间：14:49:22" itemprop="dateCreated datePublished" datetime="2019-08-18T07:53:54+08:00">2019-08-18</time>
+            </span>
+          
+            
+
+            
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+            <span class="post-meta-divider"></span>
+          
+
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>9.6k</span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>一般做Springboot项目，都是打成jar包，并且内嵌一个Servlet容器（Tomcat,jetty，undertow）,今天就了解一下有关内嵌Servlet容器的自动装配(2.0.0版本),主要是两个类EmbeddedWebServerFactoryCustomizerAutoConfiguration和ServletWebServerFactoryAutoConfiguration</p>
+<!--moer-->
+<h2 id="EmbeddedWebServerFactoryCustomizerAutoConfiguration"><a href="#EmbeddedWebServerFactoryCustomizerAutoConfiguration" class="headerlink" title="EmbeddedWebServerFactoryCustomizerAutoConfiguration"></a>EmbeddedWebServerFactoryCustomizerAutoConfiguration</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(ServerProperties.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmbeddedWebServerFactoryCustomizerAutoConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@ConditionalOnClass</span>(&#123; Tomcat.class, UpgradeProtocol.class &#125;)</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">TomcatWebServerFactoryCustomizerConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Bean</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> TomcatWebServerFactoryCustomizer <span class="title">tomcatWebServerFactoryCustomizer</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">				Environment environment, ServerProperties serverProperties)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">new</span> TomcatWebServerFactoryCustomizer(environment, serverProperties);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Nested configuration if Jetty is being used.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Configuration</span></span><br><span class="line">	<span class="meta">@ConditionalOnClass</span>(&#123; Server.class, Loader.class, WebAppContext.class &#125;)</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">JettyWebServerFactoryCustomizerConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Bean</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> JettyWebServerFactoryCustomizer <span class="title">jettyWebServerFactoryCustomizer</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">				Environment environment, ServerProperties serverProperties)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">new</span> JettyWebServerFactoryCustomizer(environment, serverProperties);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Nested configuration if Undertow is being used.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Configuration</span></span><br><span class="line">	<span class="meta">@ConditionalOnClass</span>(&#123; Undertow.class, SslClientAuthMode.class &#125;)</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">UndertowWebServerFactoryCustomizerConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Bean</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> UndertowWebServerFactoryCustomizer <span class="title">undertowWebServerFactoryCustomizer</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">				Environment environment, ServerProperties serverProperties)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">new</span> UndertowWebServerFactoryCustomizer(environment, serverProperties);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据导入的依赖不同，会注册不同的WebServerFactoryCustomizer(容器工厂定制器)，默认在spring-boot-starter-web中会依赖spring-boot-starter-tomcat，即默认使用的是Tomcat容器，如果想用其他的容器，就将默认的依赖删除，加入指定容器的依赖即可。就以TomcatWebServerFactoryCustomizer为例：</p>
+<h3 id="TomcatWebServerFactoryCustomizer"><a href="#TomcatWebServerFactoryCustomizer" class="headerlink" title="TomcatWebServerFactoryCustomizer"></a>TomcatWebServerFactoryCustomizer</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TomcatWebServerFactoryCustomizer</span> <span class="keyword">implements</span></span></span><br><span class="line"><span class="class">		<span class="title">WebServerFactoryCustomizer</span>&lt;<span class="title">ConfigurableTomcatWebServerFactory</span>&gt;, <span class="title">Ordered</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Environment environment;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> ServerProperties serverProperties;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">TomcatWebServerFactoryCustomizer</span><span class="params">(Environment environment,</span></span></span><br><span class="line"><span class="function"><span class="params">			ServerProperties serverProperties)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.environment = environment;</span><br><span class="line">		<span class="keyword">this</span>.serverProperties = serverProperties;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">customize</span><span class="params">(ConfigurableTomcatWebServerFactory factory)</span> </span>&#123;</span><br><span class="line">		ServerProperties properties = <span class="keyword">this</span>.serverProperties;</span><br><span class="line">		ServerProperties.Tomcat tomcatProperties = properties.getTomcat();</span><br><span class="line">		PropertyMapper propertyMapper = PropertyMapper.get();</span><br><span class="line">		propertyMapper.from(tomcatProperties::getBasedir).whenNonNull()</span><br><span class="line">				.to(factory::setBaseDirectory);</span><br><span class="line">		propertyMapper.from(tomcatProperties::getBackgroundProcessorDelay).whenNonNull()</span><br><span class="line">				.as(Duration::getSeconds).as(Long::intValue)</span><br><span class="line">				.to(factory::setBackgroundProcessorDelay);</span><br><span class="line">		customizeRemoteIpValve(factory);</span><br><span class="line">		propertyMapper.from(tomcatProperties::getMaxThreads).when(<span class="keyword">this</span>::isPositive)</span><br><span class="line">				.to((maxThreads) -&gt; customizeMaxThreads(factory,</span><br><span class="line">						tomcatProperties.getMaxThreads()));</span><br><span class="line">		propertyMapper.from(tomcatProperties::getMinSpareThreads).when(<span class="keyword">this</span>::isPositive)</span><br><span class="line">				.to((minSpareThreads) -&gt; customizeMinThreads(factory, minSpareThreads));</span><br><span class="line">		propertyMapper.from(() -&gt; determineMaxHttpHeaderSize()).when(<span class="keyword">this</span>::isPositive)</span><br><span class="line">				.to((maxHttpHeaderSize) -&gt; customizeMaxHttpHeaderSize(factory,</span><br><span class="line">						maxHttpHeaderSize));</span><br><span class="line">		propertyMapper.from(tomcatProperties::getMaxHttpPostSize)</span><br><span class="line">				.when((maxHttpPostSize) -&gt; maxHttpPostSize != <span class="number">0</span>)</span><br><span class="line">				.to((maxHttpPostSize) -&gt; customizeMaxHttpPostSize(factory,</span><br><span class="line">						maxHttpPostSize));</span><br><span class="line">		propertyMapper.from(tomcatProperties::getAccesslog)</span><br><span class="line">				.when(ServerProperties.Tomcat.Accesslog::isEnabled)</span><br><span class="line">				.to((enabled) -&gt; customizeAccessLog(factory));</span><br><span class="line">		propertyMapper.from(tomcatProperties::getUriEncoding).whenNonNull()</span><br><span class="line">				.to(factory::setUriEncoding);</span><br><span class="line">		propertyMapper.from(properties::getConnectionTimeout).whenNonNull()</span><br><span class="line">				.to((connectionTimeout) -&gt; customizeConnectionTimeout(factory,</span><br><span class="line">						connectionTimeout));</span><br><span class="line">		propertyMapper.from(tomcatProperties::getMaxConnections).when(<span class="keyword">this</span>::isPositive)</span><br><span class="line">				.to((maxConnections) -&gt; customizeMaxConnections(factory, maxConnections));</span><br><span class="line">		propertyMapper.from(tomcatProperties::getAcceptCount).when(<span class="keyword">this</span>::isPositive)</span><br><span class="line">				.to((acceptCount) -&gt; customizeAcceptCount(factory, acceptCount));</span><br><span class="line">		customizeStaticResources(factory);</span><br><span class="line">		customizeErrorReportValve(properties.getError(), factory);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>TomcatWebServerFactoryCustomizer 实现了 WebServerFactoryCustomizer接口，其中有一个customize方法，是根据ServerProperties(配置文件中的配置）给容器进行初始化，打个断点，观察一下方法调用栈。</p>
+<img src="/2019/08/18/Springboot-EmbeddedWebServerAutoConfiguration/pic1.png">
+<p>发现是WebServerFactoryCustomizerBeanPostProcessor这个后置处理器中调用的</p>
+<h3 id="WebServerFactoryCustomizerBeanPostProcessor"><a href="#WebServerFactoryCustomizerBeanPostProcessor" class="headerlink" title="WebServerFactoryCustomizerBeanPostProcessor"></a>WebServerFactoryCustomizerBeanPostProcessor</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">postProcessBeforeInitialization</span><span class="params">(WebServerFactory webServerFactory)</span> </span>&#123;</span><br><span class="line">  LambdaSafe</span><br><span class="line">      .callbacks(WebServerFactoryCustomizer.class, getCustomizers(),</span><br><span class="line">          webServerFactory)</span><br><span class="line">      .withLogger(WebServerFactoryCustomizerBeanPostProcessor.class)</span><br><span class="line">      .invoke((customizer) -&gt; customizer.customize(webServerFactory));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里会获取所有的WebServerFactoryCustomizer，依次调用其中的customize方法。</p>
+<h3 id="WebServerFactoryCustomizer"><a href="#WebServerFactoryCustomizer" class="headerlink" title="WebServerFactoryCustomizer"></a>WebServerFactoryCustomizer</h3><img src="/2019/08/18/Springboot-EmbeddedWebServerAutoConfiguration/pic2.png">
+<p>这些都是WebServerFactoryCustomizer接口的实现类，可以发现其中的TomcatServletWebServerFactoryCustomizer，ServletWebServerFactoryCustomizer，TomcatWebServerFactoryCustomizer都是和Tomcat有关的。</p>
+<ul>
+<li>TomcatWebServerFactoryCustomizer 配置tomcat的主要信息，包含remoteIpValue、connector(最大/最小可接收线程、最大可接收头部大小等等)、uriEncoding、connectionTimeout、maxConnection等属性</li>
+<li>TomcatServletWebServerFactoryCustomizer 配置tomcat的额外信息，redirectContextRoot(是否在请求根上下文时转发，true则转发路径为/demoWeb/)和useRelativeRedirects(是否使用相对路径)等路径跳转问题处理</li>
+<li>ServletWebServerFactoryCustomizer 主要配置tomcat的servlet的信息，包含端口、上下文路径、应用名、Session配置、Servlet携带的初始变量等等</li>
+</ul>
+<h3 id="ServletWebServerFactoryAutoConfiguration"><a href="#ServletWebServerFactoryAutoConfiguration" class="headerlink" title="ServletWebServerFactoryAutoConfiguration"></a>ServletWebServerFactoryAutoConfiguration</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@AutoConfigureOrder</span>(Ordered.HIGHEST_PRECEDENCE)</span><br><span class="line"><span class="meta">@ConditionalOnClass</span>(ServletRequest.class)</span><br><span class="line"><span class="meta">@ConditionalOnWebApplication</span>(type = Type.SERVLET)</span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(ServerProperties.class)</span><br><span class="line"><span class="meta">@Import</span>(&#123; ServletWebServerFactoryAutoConfiguration.BeanPostProcessorsRegistrar.class,</span><br><span class="line">		ServletWebServerFactoryConfiguration.EmbeddedTomcat.class,</span><br><span class="line">		ServletWebServerFactoryConfiguration.EmbeddedJetty.class,</span><br><span class="line">		ServletWebServerFactoryConfiguration.EmbeddedUndertow.class &#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServletWebServerFactoryAutoConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ServletWebServerFactoryCustomizer <span class="title">servletWebServerFactoryCustomizer</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">			ServerProperties serverProperties)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> ServletWebServerFactoryCustomizer(serverProperties);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">	<span class="meta">@ConditionalOnClass</span>(name = <span class="string">"org.apache.catalina.startup.Tomcat"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> TomcatServletWebServerFactoryCustomizer <span class="title">tomcatServletWebServerFactoryCustomizer</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">			ServerProperties serverProperties)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> TomcatServletWebServerFactoryCustomizer(serverProperties);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Registers a &#123;<span class="doctag">@link</span> WebServerFactoryCustomizerBeanPostProcessor&#125;. Registered via</span></span><br><span class="line"><span class="comment">	 * &#123;<span class="doctag">@link</span> ImportBeanDefinitionRegistrar&#125; for early registration.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">BeanPostProcessorsRegistrar</span></span></span><br><span class="line"><span class="class">			<span class="keyword">implements</span> <span class="title">ImportBeanDefinitionRegistrar</span>, <span class="title">BeanFactoryAware</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">private</span> ConfigurableListableBeanFactory beanFactory;</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBeanFactory</span><span class="params">(BeanFactory beanFactory)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (beanFactory <span class="keyword">instanceof</span> ConfigurableListableBeanFactory) &#123;</span><br><span class="line">				<span class="keyword">this</span>.beanFactory = (ConfigurableListableBeanFactory) beanFactory;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata importingClassMetadata,</span></span></span><br><span class="line"><span class="function"><span class="params">				BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (<span class="keyword">this</span>.beanFactory == <span class="keyword">null</span>) &#123;</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			registerSyntheticBeanIfMissing(registry,</span><br><span class="line">					<span class="string">"webServerFactoryCustomizerBeanPostProcessor"</span>,</span><br><span class="line">					WebServerFactoryCustomizerBeanPostProcessor.class);</span><br><span class="line">			registerSyntheticBeanIfMissing(registry,</span><br><span class="line">					<span class="string">"errorPageRegistrarBeanPostProcessor"</span>,</span><br><span class="line">					ErrorPageRegistrarBeanPostProcessor.class);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">registerSyntheticBeanIfMissing</span><span class="params">(BeanDefinitionRegistry registry,</span></span></span><br><span class="line"><span class="function"><span class="params">				String name, Class&lt;?&gt; beanClass)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (ObjectUtils.isEmpty(</span><br><span class="line">					<span class="keyword">this</span>.beanFactory.getBeanNamesForType(beanClass, <span class="keyword">true</span>, <span class="keyword">false</span>))) &#123;</span><br><span class="line">				RootBeanDefinition beanDefinition = <span class="keyword">new</span> RootBeanDefinition(beanClass);</span><br><span class="line">				beanDefinition.setSynthetic(<span class="keyword">true</span>);</span><br><span class="line">				registry.registerBeanDefinition(name, beanDefinition);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以发现，ServletWebServerFactoryAutoConfiguration这个自动装配的类中注册了这两个容器工厂定制器。并且@import(BeanPostProcessorsRegistrar),其中注册了webServerFactoryCustomizerBeanPostProcessor这个后置处理器。</p>
+<h2 id="自定义webServerFactoryCustomizer"><a href="#自定义webServerFactoryCustomizer" class="headerlink" title="自定义webServerFactoryCustomizer"></a>自定义webServerFactoryCustomizer</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> WebServerFactoryCustomizer <span class="title">myWebServerFactoryCustomizer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> (WebServerFactory factory) -&gt; &#123;</span><br><span class="line">          System.out.println(<span class="string">"I am myWebServerFactoryCustomizer"</span>);</span><br><span class="line">          <span class="keyword">if</span> (factory <span class="keyword">instanceof</span> AbstractConfigurableWebServerFactory) &#123;</span><br><span class="line">              ((AbstractConfigurableWebServerFactory) factory).setPort(<span class="number">8002</span>);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//        return new WebServerFactoryCustomizer() &#123;</span></span><br><span class="line"><span class="comment">//            @Override</span></span><br><span class="line"><span class="comment">//            public void customize(WebServerFactory factory) &#123;</span></span><br><span class="line"><span class="comment">//                System.out.println("I am myWebServerFactoryCustomizer");</span></span><br><span class="line"><span class="comment">//                if(factory instanceof AbstractConfigurableWebServerFactory)&#123;</span></span><br><span class="line"><span class="comment">//                    ((AbstractConfigurableWebServerFactory) factory).setPort(8002);</span></span><br><span class="line"><span class="comment">//                &#125;</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"><span class="comment">//        &#125;;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以在自定义一个WebServerFactoryCustomizer,设置自定义的属性。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>springboot在启动时，会自动装配EmbeddedWebServerFactoryCustomizerAutoConfiguration和ServletWebServerFactoryAutoConfiguration。其中会有一些相关的Customizer（定制器），并注册了webServerFactoryCustomizerBeanPostProcessor后置处理器。然后在创建Servlet容器时，会在这个后置处理器中遍历这些定制器，完成对Servlet容器属性的设置。</p>
+
+      
+    </div>
+      
+    
+
+
+    
+    
+    
+<div>
+    
+    ﻿
+<div style="text-align:center;color: #666;font-size:14px;">
+    ------ 已触及底线<i class="fa fa-paw"></i>感谢您的阅读 ------</div>
+
+    
+ </div>
+      
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="麻辣香锅不要辣 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+      </div>
+    
+      <div>
+        
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>麻辣香锅不要辣</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://http://ybhub.gitee.io/2019/08/18/Springboot-EmbeddedWebServerAutoConfiguration/" title="SpringBoot自动装配--嵌入式Servlet容器">https://http://ybhub.gitee.io/2019/08/18/Springboot-EmbeddedWebServerAutoConfiguration/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/SpringBoot/" rel="tag"># SpringBoot</a>
+          
+            <a href="/tags/自动装配/" rel="tag"># 自动装配</a>
+          
+        </div>
+      
+      
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/17/springboot-ErrorMvcAutoConfiguration/" rel="next" title="SpringBoot自动装配--ErrorMvcAutoConfiguration">
+                <i class="fa fa-chevron-left"></i> SpringBoot自动装配--ErrorMvcAutoConfiguration
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.jpg"
+      alt="麻辣香锅不要辣">
+  <p class="site-author-name" itemprop="name">麻辣香锅不要辣</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/yb-hub" title="GitHub &rarr; https://github.com/yb-hub" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.jianshu.com/u/5b862e6348b0" title="简书 &rarr; https://www.jianshu.com/u/5b862e6348b0" rel="noopener" target="_blank"><i class="fa fa-fw fa-crosshairs"></i>简书</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EmbeddedWebServerFactoryCustomizerAutoConfiguration"><span class="nav-number">2.</span> <span class="nav-text">EmbeddedWebServerFactoryCustomizerAutoConfiguration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TomcatWebServerFactoryCustomizer"><span class="nav-number">2.1.</span> <span class="nav-text">TomcatWebServerFactoryCustomizer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebServerFactoryCustomizerBeanPostProcessor"><span class="nav-number">2.2.</span> <span class="nav-text">WebServerFactoryCustomizerBeanPostProcessor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebServerFactoryCustomizer"><span class="nav-number">2.3.</span> <span class="nav-text">WebServerFactoryCustomizer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ServletWebServerFactoryAutoConfiguration"><span class="nav-number">2.4.</span> <span class="nav-text">ServletWebServerFactoryAutoConfiguration</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义webServerFactoryCustomizer"><span class="nav-number">3.</span> <span class="nav-text">自定义webServerFactoryCustomizer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">麻辣香锅不要辣</span>
+    
+      <span class="post-meta-divider">|</span>
+      <span class="post-meta-item-icon">
+        <i class="fa fa-area-chart"></i>
+      </span>
+      
+        <span class="post-meta-item-text">站点总字数：</span>
+      
+  	<span title="post.totalcount">
+       7.8k字</span>
+      <!--<span title="站点总字数">49k</span>-->
+    
+<span id="sitetime"></span>
+<script language=javascript>
+  function siteTime(){
+    window.setTimeout("siteTime()", 1000);
+    var seconds = 1000;
+    var minutes = seconds * 60;
+    var hours = minutes * 60;
+    var days = hours * 24;
+    var years = days * 365;
+    var today = new Date();
+    var todayYear = today.getFullYear();
+    var todayMonth = today.getMonth()+1;
+    var todayDate = today.getDate();
+    var todayHour = today.getHours();
+    var todayMinute = today.getMinutes();
+    var todaySecond = today.getSeconds();
+    var t1 = Date.UTC(2018,06,07,12,00,00); // 设置建立网站的时间
+    var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+    var diff = t2-t1;
+    var diffYears = Math.floor(diff/years);
+    var diffDays = Math.floor((diff/days)-diffYears*365);
+    var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+    var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+    var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+    document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+  }
+  siteTime();
+</script>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '9001e50efd1e3dd5e3c4',
+      clientSecret: '8a2e9aecd4f201345d1a6af281db73c65cb482c8',
+      repo: 'blogComment',
+      owner: 'yb-hub',
+      admin: ['yb-hub'],
+      id: location.pathname,
+      distraction_free_mode: 'true'
+    })
+	console.log(gitalk)
+    gitalk.render('gitalk-container')
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '9001e50efd1e3dd5e3c4',
+      clientSecret: '8a2e9aecd4f201345d1a6af281db73c65cb482c8',
+      repo: 'blogComment',
+      owner: 'yb-hub',
+      admin: ['yb-hub'],
+      id: location.pathname,
+      distraction_free_mode: 'true'
+    })
+	console.log(gitalk)
+    gitalk.render('gitalk-container')
+  </script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>
+<!-- ҳ����С���� -->
+<script type="text/javascript" src="/js/myjs/love.js"></script>
+<script type="text/javascript" src="/js/myjs/dynamic_bg.js"></script>
