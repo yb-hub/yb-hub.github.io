@@ -63,7 +63,7 @@
 <meta property="og:site_name" content="Blog">
 <meta property="og:description" content="引入依赖1234&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;spring-boot-starter-data-jpa&amp;lt;/artifactId&amp;gt;&amp;lt;/dependency&amp;gt;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-31T23:49:05.358Z">
+<meta property="og:updated_time" content="2019-08-31T23:59:06.829Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="springboot_jpa">
 <meta name="twitter:description" content="引入依赖1234&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;spring-boot-starter-data-jpa&amp;lt;/artifactId&amp;gt;&amp;lt;/dependency&amp;gt;">
@@ -293,7 +293,7 @@
                 
               
 
-              <time title="创建时间：2019-09-01 07:37:06 / 修改时间：07:49:05" itemprop="dateCreated datePublished" datetime="2019-09-01T07:37:06+08:00">2019-09-01</time>
+              <time title="创建时间：2019-09-01 07:37:06 / 修改时间：07:59:06" itemprop="dateCreated datePublished" datetime="2019-09-01T07:37:06+08:00">2019-09-01</time>
             </span>
           
             
@@ -411,6 +411,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"user/&#123;id&#125;"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> ResponseEntity <span class="title">updateUser1</span><span class="params">(@RequestBody User user,@PathVariable(<span class="string">"id"</span>)</span> <span class="keyword">long</span> id)</span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = userDao.updateUser(user,id);</span><br><span class="line">    <span class="keyword">return</span> i==<span class="number">1</span> ? <span class="keyword">new</span> ResponseEntity(<span class="string">"success"</span>,HttpStatus.OK) : <span class="keyword">new</span> ResponseEntity(<span class="string">"fail"</span>,HttpStatus.OK);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>如果要进行更新/删除操作时，需要加个@Transactional注解，同时需要加上@modifying注解，默认开启的事务是可读的，开启之后就会关闭可读。</p>
+<p><a href="https://gitee.com/ybhub/springboot_demo" target="_blank" rel="noopener">demo</a></p>
 
       
     </div>
@@ -494,6 +495,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/09/04/jwt/" rel="prev" title="jwt">
+                jwt <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -551,7 +556,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -576,7 +581,9 @@
         
           
         
-        <span class="site-state-item-count">5</span>
+          
+        
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -615,7 +622,9 @@
         
           
         
-        <span class="site-state-item-count">12</span>
+          
+        
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -692,8 +701,8 @@
         <span class="post-meta-item-text">站点总字数：</span>
       
   	<span title="post.totalcount">
-       15.9k字</span>
-      <!--<span title="站点总字数">99k</span>-->
+       16.2k字</span>
+      <!--<span title="站点总字数">102k</span>-->
     
 <span id="sitetime"></span>
 <script language=javascript>

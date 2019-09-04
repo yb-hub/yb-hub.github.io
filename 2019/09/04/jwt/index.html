@@ -55,21 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="概念及原理概念：Servlet（server applet）就是运行在服务器端的小程序，Servlet是一个接口，定义了Java类被浏览器访问到（Tomcat识别）的规则。原理：1.当服务器接收到客户端浏览器的请求后，会解析请求url的路径，获取访问的Servlet的资源路径2.查找web.xml文件，是否有对应的3.有的话，tomcat会根据对应的的全类名，将字节码文件加载进内存，并且创建其对象">
-<meta name="keywords" content="JavaEE,Servlet">
+  <meta name="description" content="简介官方网址 阮一峰 JwtUtils123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778package com.example.demo.jwt;impor">
+<meta name="keywords" content="jwt">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Servlet">
-<meta property="og:url" content="https://http://ybhub.gitee.io/2019/08/07/Servlet/index.html">
+<meta property="og:title" content="jwt">
+<meta property="og:url" content="https://http://ybhub.gitee.io/2019/09/04/jwt/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="概念及原理概念：Servlet（server applet）就是运行在服务器端的小程序，Servlet是一个接口，定义了Java类被浏览器访问到（Tomcat识别）的规则。原理：1.当服务器接收到客户端浏览器的请求后，会解析请求url的路径，获取访问的Servlet的资源路径2.查找web.xml文件，是否有对应的3.有的话，tomcat会根据对应的的全类名，将字节码文件加载进内存，并且创建其对象">
+<meta property="og:description" content="简介官方网址 阮一峰 JwtUtils123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778package com.example.demo.jwt;impor">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://http/2019/08/07/Servlet/servlet.png">
-<meta property="og:updated_time" content="2019-08-07T13:44:45.115Z">
+<meta property="og:updated_time" content="2019-09-04T11:31:59.230Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Servlet">
-<meta name="twitter:description" content="概念及原理概念：Servlet（server applet）就是运行在服务器端的小程序，Servlet是一个接口，定义了Java类被浏览器访问到（Tomcat识别）的规则。原理：1.当服务器接收到客户端浏览器的请求后，会解析请求url的路径，获取访问的Servlet的资源路径2.查找web.xml文件，是否有对应的3.有的话，tomcat会根据对应的的全类名，将字节码文件加载进内存，并且创建其对象">
-<meta name="twitter:image" content="https://http/2019/08/07/Servlet/servlet.png">
-  <link rel="canonical" href="https://http://ybhub.gitee.io/2019/08/07/Servlet/">
+<meta name="twitter:title" content="jwt">
+<meta name="twitter:description" content="简介官方网址 阮一峰 JwtUtils123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778package com.example.demo.jwt;impor">
+  <link rel="canonical" href="https://http://ybhub.gitee.io/2019/09/04/jwt/">
 
 
 <script id="page-configurations">
@@ -83,7 +81,7 @@
   };
 </script>
 
-  <title>Servlet | Blog</title>
+  <title>jwt | Blog</title>
   
 
 
@@ -264,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://http://ybhub.gitee.io/2019/08/07/Servlet/">
+    <link itemprop="mainEntityOfPage" href="https://http://ybhub.gitee.io/2019/09/04/jwt/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="麻辣香锅不要辣">
@@ -278,7 +276,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">Servlet
+          <h1 class="post-title" itemprop="name headline">jwt
 
             
           </h1>
@@ -295,7 +293,7 @@
                 
               
 
-              <time title="创建时间：2019-08-07 21:19:17 / 修改时间：21:44:45" itemprop="dateCreated datePublished" datetime="2019-08-07T21:19:17+08:00">2019-08-07</time>
+              <time title="创建时间：2019-09-04 19:22:56 / 修改时间：19:31:59" itemprop="dateCreated datePublished" datetime="2019-09-04T19:22:56+08:00">2019-09-04</time>
             </span>
           
             
@@ -309,7 +307,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaEE/" itemprop="url" rel="index"><span itemprop="name">JavaEE</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/jwt/" itemprop="url" rel="index"><span itemprop="name">jwt</span></a></span>
 
                 
                 
@@ -344,7 +342,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>3.3k</span>
+              <span>3k</span>
             </span>
           
 
@@ -362,26 +360,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="概念及原理"><a href="#概念及原理" class="headerlink" title="概念及原理"></a>概念及原理</h3><p>概念：Servlet（server applet）就是运行在服务器端的小程序，Servlet是一个接口，定义了Java类被浏览器访问到（Tomcat识别）的规则。<br>原理：<br>1.当服务器接收到客户端浏览器的请求后，会解析请求url的路径，获取访问的Servlet的资源路径<br>2.查找web.xml文件，是否有对应的<url-pattern><br>3.有的话，tomcat会根据对应的<servlet-class>的全类名，将字节码文件加载进内存，并且创建其对象<br>4.调用其方法</servlet-class></url-pattern></p>
-<img src="/2019/08/07/Servlet/servlet.png">
-<a id="more"></a>
+        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><a href="https://jwt.io/" target="_blank" rel="noopener">官方网址</a></p>
+<p><a href="http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html" target="_blank" rel="noopener">阮一峰</a></p>
+<h3 id="JwtUtils"><a href="#JwtUtils" class="headerlink" title="JwtUtils"></a>JwtUtils</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo.jwt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> io.jsonwebtoken.Claims;</span><br><span class="line"><span class="keyword">import</span> io.jsonwebtoken.Jwts;</span><br><span class="line"><span class="keyword">import</span> io.jsonwebtoken.SignatureAlgorithm;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Auther</span>: Yang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2019/9/4 13:10</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JwtUtils</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String SECRET = <span class="string">"mySecret"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Long EXPIRATION_REMEMBER = <span class="number">604800L</span> * <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">     * 生成token</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> openId</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">createToken</span><span class="params">(String openId)</span> </span>&#123;</span><br><span class="line">        HashMap&lt;String, Object&gt; claim = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        claim.put(<span class="string">"openId"</span>, openId);</span><br><span class="line">        <span class="keyword">return</span> Jwts.builder()</span><br><span class="line">                .signWith(SignatureAlgorithm.HS256, SECRET)<span class="comment">//设置签名算法和签名密码</span></span><br><span class="line">                .setClaims(claim)<span class="comment">//设置自定义数据</span></span><br><span class="line">                .setIssuer(<span class="string">"yang"</span>)<span class="comment">//设置签发人</span></span><br><span class="line">                .setIssuedAt(<span class="keyword">new</span> Date())<span class="comment">//设置签发时间</span></span><br><span class="line">                .setExpiration(<span class="keyword">new</span> Date(System.currentTimeMillis() + EXPIRATION_REMEMBER))<span class="comment">//设置过期时间</span></span><br><span class="line">                .compact();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">     * 通过token先获取claims然后从claims中获取openid</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> token</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getOpenId</span><span class="params">(String token)</span> </span>&#123;</span><br><span class="line">        Claims claims = getClaimsFromToken(token);</span><br><span class="line">        <span class="keyword">if</span>(claims != <span class="keyword">null</span>)&#123;</span><br><span class="line">            String openId = (String) claims.get(<span class="string">"openId"</span>);  <span class="comment">//try catch</span></span><br><span class="line">            <span class="keyword">return</span> openId;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">     * 通过secret获取token中的claim</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> token</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Claims <span class="title">getClaimsFromToken</span><span class="params">(String token)</span> </span>&#123;</span><br><span class="line">        Claims claims;</span><br><span class="line">        claims = Jwts.parser()</span><br><span class="line">                    .setSigningKey(SECRET)</span><br><span class="line">                    .parseClaimsJws(token)</span><br><span class="line">                    .getBody();</span><br><span class="line">        <span class="keyword">return</span> claims == <span class="keyword">null</span> ? <span class="keyword">null</span> : claims;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">     * 验证token是否过期</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> token</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Boolean <span class="title">validateToken</span><span class="params">(String token)</span></span>&#123;</span><br><span class="line">        Claims claims = getClaimsFromToken(token);</span><br><span class="line">        Date expiration = claims.getExpiration();</span><br><span class="line">        <span class="keyword">return</span> expiration.after(<span class="keyword">new</span> Date());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>1.创建JavaEE项目<br>2.定义一个类，实现Servlet接口<br>3.实现接口中的抽象方法<br>4.配置Servlet(2.5在web.xml中配置，3.0用注解的方式配置)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public class ServletDemo implements Servlet &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void init(ServletConfig servletConfig) throws ServletException &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public ServletConfig getServletConfig() &#123;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void service(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException &#123;</span><br><span class="line">        System.out.println(&quot;hello&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String getServletInfo() &#123;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void destroy() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span><br><span class="line">         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;</span><br><span class="line">         version=&quot;3.1&quot;&gt;</span><br><span class="line">&lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;first_servlet&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;cn.yb.test.ServletDemo&lt;/servlet-class&gt;</span><br><span class="line">        &lt;!--指定Servlet创建的时机--&gt;</span><br><span class="line">        &lt;!--1.第一次访问时创建--&gt;</span><br><span class="line">        &lt;!--load-on-startup 值为负数--&gt;</span><br><span class="line">        &lt;!--2.在服务器启动时创建--&gt;</span><br><span class="line">        &lt;!--load-on-startup 值为正数--&gt;</span><br><span class="line">        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;</span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;first_servlet&lt;/servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/firstservlet&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
-
-<p>3.0中使用@WebServlet注解</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">public @interface WebServlet &#123;</span><br><span class="line">    String name() default &quot;&quot;;</span><br><span class="line"></span><br><span class="line">    String[] value() default &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    String[] urlPatterns() default &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    int loadOnStartup() default -1;</span><br><span class="line"></span><br><span class="line">    WebInitParam[] initParams() default &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    boolean asyncSupported() default false;</span><br><span class="line"></span><br><span class="line">    String smallIcon() default &quot;&quot;;</span><br><span class="line"></span><br><span class="line">    String largeIcon() default &quot;&quot;;</span><br><span class="line"></span><br><span class="line">    String description() default &quot;&quot;;</span><br><span class="line"></span><br><span class="line">    String displayName() default &quot;&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="Servlet体系结构"><a href="#Servlet体系结构" class="headerlink" title="Servlet体系结构"></a>Servlet体系结构</h4><p>Servlet — 接口<br>GenericServlet — 抽象类<br>HttpServlet—抽象类</p>
-<ul>
-<li><em>GenericServlet：将Servlet接口中其他的方法做了默认的空实现，只将service（）方法作为抽象方法</em></li>
-<li><em>HttpServlet:对http协议的一种封装，简化操作</em></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class ServletDemo1 extends GenericServlet &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void service(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException &#123;</span><br><span class="line">        System.out.println(&quot;hello&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class ServletDemo1 extends HttpServlet &#123;</span><br><span class="line">    @Override</span><br><span class="line">    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        super.doGet(req, resp);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        super.doPost(req, resp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="controller"><a href="#controller" class="headerlink" title="controller"></a>controller</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"token"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getToken</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String token = JwtUtils.createToken(<span class="string">"yb"</span>);</span><br><span class="line">    <span class="keyword">return</span> token;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"checktoken"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> ResponseEntity <span class="title">checkToken</span><span class="params">(HttpServletRequest request)</span> </span>&#123;</span><br><span class="line">    HashMap&lt;Object, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    String token = request.getHeader(<span class="string">"jwtToken"</span>);</span><br><span class="line">    System.out.println(token);</span><br><span class="line">    <span class="keyword">if</span> (token !=<span class="keyword">null</span> &amp;&amp; !token.isEmpty()) &#123;</span><br><span class="line">        <span class="comment">//校验token是否过期，若过期，则重新登录，否则获取openId</span></span><br><span class="line">        <span class="keyword">if</span> (JwtUtils.validateToken(token)) &#123;</span><br><span class="line">            map.put(<span class="string">"success"</span>, <span class="string">"验证成功"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ResponseEntity(map, HttpStatus.OK);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            map.put(<span class="string">"error"</span>, <span class="string">"token失效"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ResponseEntity(map, HttpStatus.UNAUTHORIZED);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        map.put(<span class="string">"error"</span>, <span class="string">"token为空"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ResponseEntity(map, HttpStatus.UNAUTHORIZED);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -430,7 +413,7 @@
     <strong>本文作者： </strong>麻辣香锅不要辣</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://http://ybhub.gitee.io/2019/08/07/Servlet/" title="Servlet">https://http://ybhub.gitee.io/2019/08/07/Servlet/</a>
+    <a href="https://http://ybhub.gitee.io/2019/09/04/jwt/" title="jwt">https://http://ybhub.gitee.io/2019/09/04/jwt/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -445,9 +428,7 @@
         
         <div class="post-tags">
           
-            <a href="/tags/JavaEE/" rel="tag"># JavaEE</a>
-          
-            <a href="/tags/Servlet/" rel="tag"># Servlet</a>
+            <a href="/tags/jwt/" rel="tag"># jwt</a>
           
         </div>
       
@@ -456,15 +437,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/09/01/springboot-jpa/" rel="next" title="springboot_jpa">
+                <i class="fa fa-chevron-left"></i> springboot_jpa
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/09/SpringAop/" rel="prev" title="SpringAop">
-                SpringAop <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -636,7 +617,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念及原理"><span class="nav-number">1.</span> <span class="nav-text">概念及原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例子"><span class="nav-number">2.</span> <span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Servlet体系结构"><span class="nav-number">2.1.</span> <span class="nav-text">Servlet体系结构</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JwtUtils"><span class="nav-number">2.</span> <span class="nav-text">JwtUtils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#controller"><span class="nav-number">3.</span> <span class="nav-text">controller</span></a></li></ol></div>
             
 
           </div>
