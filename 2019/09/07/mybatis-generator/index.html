@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/yingmu-32.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/yingmu-32.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/yingmu-16.ico?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    save_scroll: false,
+    copycode: {"enable":true,"show_result":true,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="MyBatis Generator（mbg）简介MyBatis Generator将生成：  与表结构匹配的Java POJO。这可能包括：  一个匹配表的主键的类（如果有主键） 一个匹配表的非主键字段的类（BLOB字段除外） 包含表的BLOB字段的类（如果表具有BLOB字段） 用于启用动态选择，更新和删除的类这些类之间存在适当的继承关系。请注意，生成器可以配置为生成不同类型的POJO层次结构 -">
+<meta name="keywords" content="mybatis,mbg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mybatis_generator">
+<meta property="og:url" content="https://http://ybhub.gitee.io/2019/09/07/mybatis-generator/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="MyBatis Generator（mbg）简介MyBatis Generator将生成：  与表结构匹配的Java POJO。这可能包括：  一个匹配表的主键的类（如果有主键） 一个匹配表的非主键字段的类（BLOB字段除外） 包含表的BLOB字段的类（如果表具有BLOB字段） 用于启用动态选择，更新和删除的类这些类之间存在适当的继承关系。请注意，生成器可以配置为生成不同类型的POJO层次结构 -">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://http/2019/09/07/mybatis-generator/generator1.png">
+<meta property="og:updated_time" content="2019-09-07T13:30:07.676Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mybatis_generator">
+<meta name="twitter:description" content="MyBatis Generator（mbg）简介MyBatis Generator将生成：  与表结构匹配的Java POJO。这可能包括：  一个匹配表的主键的类（如果有主键） 一个匹配表的非主键字段的类（BLOB字段除外） 包含表的BLOB字段的类（如果表具有BLOB字段） 用于启用动态选择，更新和删除的类这些类之间存在适当的继承关系。请注意，生成器可以配置为生成不同类型的POJO层次结构 -">
+<meta name="twitter:image" content="https://http/2019/09/07/mybatis-generator/generator1.png">
+  <link rel="canonical" href="https://http://ybhub.gitee.io/2019/09/07/mybatis-generator/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>mybatis_generator | Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+<div class="bg_content">
+  <canvas id="canvas"></canvas>
+</div>
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/yb-hub" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://http://ybhub.gitee.io/2019/09/07/mybatis-generator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="麻辣香锅不要辣">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">mybatis_generator
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-07 20:58:00 / 修改时间：21:30:07" itemprop="dateCreated datePublished" datetime="2019-09-07T20:58:00+08:00">2019-09-07</time>
+            </span>
+          
+            
+
+            
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/mybatis/" itemprop="url" rel="index"><span itemprop="name">mybatis</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+            <span class="post-meta-divider"></span>
+          
+
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>6.8k</span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="MyBatis-Generator（mbg）简介"><a href="#MyBatis-Generator（mbg）简介" class="headerlink" title="MyBatis Generator（mbg）简介"></a>MyBatis Generator（mbg）简介</h3><p>MyBatis Generator将生成：</p>
+<ul>
+<li><p>与表结构匹配的Java POJO。这可能包括：</p>
+<ul>
+<li>一个匹配表的主键的类（如果有主键）</li>
+<li>一个匹配表的非主键字段的类（BLOB字段除外）</li>
+<li>包含表的BLOB字段的类（如果表具有BLOB字段）</li>
+<li>用于启用动态选择，更新和删除的类<br>这些类之间存在适当的继承关系。请注意，生成器可以配置为生成不同类型的POJO层次结构 - 例如，如果您愿意，可以选择为每个表生成单个域对象。<a id="more"></a></li>
+</ul>
+</li>
+<li><p>MyBatis / iBATIS兼容的SQL Map XML文件。MBG为配置中的每个表上的简单CRUD函数生成SQL。生成的SQL语句包括：</p>
+<ul>
+<li>insert</li>
+<li>update by primary key</li>
+<li>update by example (using a dynamic where clause)</li>
+<li>delete by primary key</li>
+<li>delete by example (using a dynamic where clause)</li>
+<li>select by primary key</li>
+<li>select by example (using a dynamic where clause)</li>
+<li>count by example<br>根据表的结构，这些语句有不同的变体（例如，如果表没有主键，则MBG不会通过主键功能生成更新）。</li>
+</ul>
+</li>
+<li><p>适当使用上述对象的Java客户端类。Java客户端类的生成是可选的。MBG将为MyBatis 3.x生成以下类型的Java客户端：</p>
+<ul>
+<li>适用于MyBatis 3.x映射器基础结构的映射器接口</li>
+</ul>
+</li>
+</ul>
+<h3 id="mbg配置文件-generatorConfig-xml"><a href="#mbg配置文件-generatorConfig-xml" class="headerlink" title="mbg配置文件(generatorConfig.xml)"></a>mbg配置文件(generatorConfig.xml)</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE generatorConfiguration</span></span><br><span class="line"><span class="meta">        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"</span></span><br><span class="line"><span class="meta">        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">generatorConfiguration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span> <span class="attr">resource</span>=<span class="string">"generator.properties"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context</span> <span class="attr">id</span>=<span class="string">"MySqlContext"</span> <span class="attr">targetRuntime</span>=<span class="string">"MyBatis3"</span> <span class="attr">defaultModelType</span>=<span class="string">"flat"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"beginningDelimiter"</span> <span class="attr">value</span>=<span class="string">"`"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"endingDelimiter"</span> <span class="attr">value</span>=<span class="string">"`"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"javaFileEncoding"</span> <span class="attr">value</span>=<span class="string">"UTF-8"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 为模型生成序列化方法--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span> <span class="attr">type</span>=<span class="string">"org.mybatis.generator.plugins.SerializablePlugin"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 为生成的Java模型创建一个toString方法 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span> <span class="attr">type</span>=<span class="string">"org.mybatis.generator.plugins.ToStringPlugin"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 自定义插件，可以在生成model类时添加lombok注解 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span> <span class="attr">type</span>=<span class="string">"org.mybatis.generator.plugins.LombokPlugin"</span> &gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hasLombok"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--可以自定义生成model的代码注释--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">commentGenerator</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 是否去除自动生成的注释 true：是 ： false:否 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"suppressAllComments"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"suppressDate"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"addRemarkComments"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">commentGenerator</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--配置数据库连接--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">jdbcConnection</span> <span class="attr">driverClass</span>=<span class="string">"$&#123;jdbc.driverClass&#125;"</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">connectionURL</span>=<span class="string">"$&#123;jdbc.connectionURL&#125;"</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">userId</span>=<span class="string">"$&#123;jdbc.userId&#125;"</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">password</span>=<span class="string">"$&#123;jdbc.password&#125;"</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--解决mysql驱动升级到8.0后不生成指定数据库代码的问题--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"nullCatalogMeansCurrent"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">jdbcConnection</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--指定生成model的路径--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaModelGenerator</span> <span class="attr">targetPackage</span>=<span class="string">"com.yb.mall_demo.mbg.model"</span> <span class="attr">targetProject</span>=<span class="string">"src/main/java"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--指定生成mapper.xml的路径--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">sqlMapGenerator</span> <span class="attr">targetPackage</span>=<span class="string">"com.yb.mall_demo.mbg.mapper"</span> <span class="attr">targetProject</span>=<span class="string">"src/main/resources"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--指定生成mapper接口的的路径--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaClientGenerator</span> <span class="attr">type</span>=<span class="string">"XMLMAPPER"</span> <span class="attr">targetPackage</span>=<span class="string">"com.yb.mall_demo.mbg.mapper"</span></span></span><br><span class="line"><span class="tag">                             <span class="attr">targetProject</span>=<span class="string">"src/main/java"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--生成全部表tableName设为%--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">table</span> <span class="attr">tableName</span>=<span class="string">"pms_brand"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">generatedKey</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">sqlStatement</span>=<span class="string">"MySql"</span> <span class="attr">identity</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">context</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">generatorConfiguration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="generator-properties-数据库连接配置"><a href="#generator-properties-数据库连接配置" class="headerlink" title="generator.properties(数据库连接配置)"></a>generator.properties(数据库连接配置)</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">jdbc.driverClass=com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="string">jdbc.connectionURL=jdbc:mysql://192.168.88.134:3306/mall?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai</span></span><br><span class="line"><span class="string">jdbc.userId=root</span></span><br><span class="line"><span class="string">jdbc.password=123456</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="LombokPlugin"><a href="#LombokPlugin" class="headerlink" title="LombokPlugin"></a>LombokPlugin</h3><p>使用自定义插件，当生成model类时，使用lombok注解，无需生成get,set方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.mybatis.generator.plugins;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> LombokPlugin</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> Yang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2019-09-07 14:53</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LombokPlugin</span> <span class="keyword">extends</span> <span class="title">PluginAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">validate</span><span class="params">(List&lt;String&gt; list)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">modelBaseRecordClassGenerated</span><span class="params">(TopLevelClass topLevelClass, IntrospectedTable introspectedTable)</span> </span>&#123;</span><br><span class="line">        topLevelClass.addImportedType(<span class="string">"lombok.Data"</span>);</span><br><span class="line">        topLevelClass.addImportedType(<span class="string">"lombok.ToString"</span>);</span><br><span class="line">        topLevelClass.addImportedType(<span class="string">"lombok.NoArgsConstructor"</span>);</span><br><span class="line">        topLevelClass.addImportedType(<span class="string">"lombok.AllArgsConstructor"</span>);</span><br><span class="line"></span><br><span class="line">        topLevelClass.addAnnotation(<span class="string">"@Data"</span>);</span><br><span class="line">        topLevelClass.addAnnotation(<span class="string">"@ToString"</span>);</span><br><span class="line">        topLevelClass.addAnnotation(<span class="string">"@NoArgsConstructor"</span>);</span><br><span class="line">        topLevelClass.addAnnotation(<span class="string">"@AllArgsConstructor"</span>);</span><br><span class="line"></span><br><span class="line">        topLevelClass.addJavaDocLine(<span class="string">"/**"</span>);</span><br><span class="line">        topLevelClass.addJavaDocLine(<span class="string">"* Created by Mybatis Generator on "</span> + date2Str(<span class="keyword">new</span> Date()));</span><br><span class="line">        topLevelClass.addJavaDocLine(<span class="string">"*/"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">clientGenerated</span><span class="params">(Interface interfaze, TopLevelClass topLevelClass, IntrospectedTable introspectedTable)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        interfaze.addJavaDocLine(<span class="string">"/**"</span>);</span><br><span class="line">        interfaze.addJavaDocLine(<span class="string">"* Created by Mybatis Generator on "</span> + date2Str(<span class="keyword">new</span> Date()));</span><br><span class="line">        interfaze.addJavaDocLine(<span class="string">"*/"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">modelSetterMethodGenerated</span><span class="params">(Method method, TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn, IntrospectedTable introspectedTable, ModelClassType modelClassType)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//不生成getter</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">modelGetterMethodGenerated</span><span class="params">(Method method, TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn, IntrospectedTable introspectedTable, ModelClassType modelClassType)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//不生成setter</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">date2Str</span><span class="params">(Date date)</span> </span>&#123;</span><br><span class="line">        SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy/MM/dd"</span>);</span><br><span class="line">        <span class="keyword">return</span> sdf.format(date);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译，得到.class文件。然后将这个.class文件放入maven仓库中org\mybatis\generator\mybatis-generator-core\ [版本号]，就是你当前pom文件中导入的mybatis-generator-core那个位置。</p>
+<img src="/2019/09/07/mybatis-generator/generator1.png">
+
+<h3 id="Generator-运行mbg"><a href="#Generator-运行mbg" class="headerlink" title="Generator(运行mbg)"></a>Generator(运行mbg)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> Generator</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> Yang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2019-09-07 13:33</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Generator</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//MBG 执行过程中的警告信息</span></span><br><span class="line">        List&lt;String&gt; warnings = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        <span class="comment">//当生成的代码重复时，覆盖原代码</span></span><br><span class="line">        <span class="keyword">boolean</span> overwrite = <span class="keyword">true</span>;</span><br><span class="line">        <span class="comment">//读取我们的 MBG 配置文件</span></span><br><span class="line">        InputStream is = Generator.class.getResourceAsStream(<span class="string">"/generatorConfig.xml"</span>);</span><br><span class="line">        ConfigurationParser cp = <span class="keyword">new</span> ConfigurationParser(warnings);</span><br><span class="line">        Configuration config = cp.parseConfiguration(is);</span><br><span class="line">        is.close();</span><br><span class="line"></span><br><span class="line">        DefaultShellCallback callback = <span class="keyword">new</span> DefaultShellCallback(overwrite);</span><br><span class="line">        <span class="comment">//创建 MBG</span></span><br><span class="line">        MyBatisGenerator myBatisGenerator = <span class="keyword">new</span> MyBatisGenerator(config, callback, warnings);</span><br><span class="line">        <span class="comment">//执行生成代码</span></span><br><span class="line">        myBatisGenerator.generate(<span class="keyword">null</span>);</span><br><span class="line">        <span class="comment">//输出警告信息</span></span><br><span class="line">        <span class="keyword">for</span> (String warning : warnings) &#123;</span><br><span class="line">            System.out.println(warning);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此处采用java代码的方式运行。也可以使用maven等方式。</p>
+<p><a href="http://www.mybatis.org/generator/" target="_blank" rel="noopener">mybatis-generator官网</a></p>
+
+      
+    </div>
+      
+    
+
+
+    
+    
+    
+<div>
+    
+    ﻿
+<div style="text-align:center;color: #666;font-size:14px;">
+    ------ 已触及底线<i class="fa fa-paw"></i>感谢您的阅读 ------</div>
+
+    
+ </div>
+      
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="麻辣香锅不要辣 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+      </div>
+    
+      <div>
+        
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>麻辣香锅不要辣</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://http://ybhub.gitee.io/2019/09/07/mybatis-generator/" title="mybatis_generator">https://http://ybhub.gitee.io/2019/09/07/mybatis-generator/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/mybatis/" rel="tag"># mybatis</a>
+          
+            <a href="/tags/mbg/" rel="tag"># mbg</a>
+          
+        </div>
+      
+      
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/04/jwt/" rel="next" title="jwt">
+                <i class="fa fa-chevron-left"></i> jwt
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.jpg"
+      alt="麻辣香锅不要辣">
+  <p class="site-author-name" itemprop="name">麻辣香锅不要辣</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/yb-hub" title="GitHub &rarr; https://github.com/yb-hub" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.jianshu.com/u/5b862e6348b0" title="简书 &rarr; https://www.jianshu.com/u/5b862e6348b0" rel="noopener" target="_blank"><i class="fa fa-fw fa-crosshairs"></i>简书</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MyBatis-Generator（mbg）简介"><span class="nav-number">1.</span> <span class="nav-text">MyBatis Generator（mbg）简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mbg配置文件-generatorConfig-xml"><span class="nav-number">2.</span> <span class="nav-text">mbg配置文件(generatorConfig.xml)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generator-properties-数据库连接配置"><span class="nav-number">3.</span> <span class="nav-text">generator.properties(数据库连接配置)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LombokPlugin"><span class="nav-number">4.</span> <span class="nav-text">LombokPlugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generator-运行mbg"><span class="nav-number">5.</span> <span class="nav-text">Generator(运行mbg)</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">麻辣香锅不要辣</span>
+    
+      <span class="post-meta-divider">|</span>
+      <span class="post-meta-item-icon">
+        <i class="fa fa-area-chart"></i>
+      </span>
+      
+        <span class="post-meta-item-text">站点总字数：</span>
+      
+  	<span title="post.totalcount">
+       17.4k字</span>
+      <!--<span title="站点总字数">109k</span>-->
+    
+<span id="sitetime"></span>
+<script language=javascript>
+  function siteTime(){
+    window.setTimeout("siteTime()", 1000);
+    var seconds = 1000;
+    var minutes = seconds * 60;
+    var hours = minutes * 60;
+    var days = hours * 24;
+    var years = days * 365;
+    var today = new Date();
+    var todayYear = today.getFullYear();
+    var todayMonth = today.getMonth()+1;
+    var todayDate = today.getDate();
+    var todayHour = today.getHours();
+    var todayMinute = today.getMinutes();
+    var todaySecond = today.getSeconds();
+    var t1 = Date.UTC(2018,06,07,12,00,00); // 设置建立网站的时间
+    var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+    var diff = t2-t1;
+    var diffYears = Math.floor(diff/years);
+    var diffDays = Math.floor((diff/days)-diffYears*365);
+    var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+    var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+    var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+    document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+  }
+  siteTime();
+</script>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '9001e50efd1e3dd5e3c4',
+      clientSecret: '8a2e9aecd4f201345d1a6af281db73c65cb482c8',
+      repo: 'blogComment',
+      owner: 'yb-hub',
+      admin: ['yb-hub'],
+      id: location.pathname,
+      distraction_free_mode: 'true'
+    })
+	console.log(gitalk)
+    gitalk.render('gitalk-container')
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '9001e50efd1e3dd5e3c4',
+      clientSecret: '8a2e9aecd4f201345d1a6af281db73c65cb482c8',
+      repo: 'blogComment',
+      owner: 'yb-hub',
+      admin: ['yb-hub'],
+      id: location.pathname,
+      distraction_free_mode: 'true'
+    })
+	console.log(gitalk)
+    gitalk.render('gitalk-container')
+  </script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>
+<!-- ҳ����С���� -->
+<script type="text/javascript" src="/js/myjs/love.js"></script>
+<script type="text/javascript" src="/js/myjs/dynamic_bg.js"></script>

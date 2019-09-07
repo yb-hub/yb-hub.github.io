@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="简介官方网址 阮一峰 JwtUtils123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778package com.example.demo.jwt;impor">
+  <meta name="description" content="简介官方网址 阮一峰">
 <meta name="keywords" content="jwt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jwt">
 <meta property="og:url" content="https://http://ybhub.gitee.io/2019/09/04/jwt/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="简介官方网址 阮一峰 JwtUtils123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778package com.example.demo.jwt;impor">
+<meta property="og:description" content="简介官方网址 阮一峰">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-04T11:31:59.230Z">
+<meta property="og:updated_time" content="2019-09-04T11:34:54.564Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jwt">
-<meta name="twitter:description" content="简介官方网址 阮一峰 JwtUtils123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778package com.example.demo.jwt;impor">
+<meta name="twitter:description" content="简介官方网址 阮一峰">
   <link rel="canonical" href="https://http://ybhub.gitee.io/2019/09/04/jwt/">
 
 
@@ -293,7 +293,7 @@
                 
               
 
-              <time title="创建时间：2019-09-04 19:22:56 / 修改时间：19:31:59" itemprop="dateCreated datePublished" datetime="2019-09-04T19:22:56+08:00">2019-09-04</time>
+              <time title="创建时间：2019-09-04 19:22:56 / 修改时间：19:34:54" itemprop="dateCreated datePublished" datetime="2019-09-04T19:22:56+08:00">2019-09-04</time>
             </span>
           
             
@@ -362,6 +362,7 @@
       
         <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><a href="https://jwt.io/" target="_blank" rel="noopener">官方网址</a></p>
 <p><a href="http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html" target="_blank" rel="noopener">阮一峰</a></p>
+<a id="more"></a>
 <h3 id="JwtUtils"><a href="#JwtUtils" class="headerlink" title="JwtUtils"></a>JwtUtils</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo.jwt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> io.jsonwebtoken.Claims;</span><br><span class="line"><span class="keyword">import</span> io.jsonwebtoken.Jwts;</span><br><span class="line"><span class="keyword">import</span> io.jsonwebtoken.SignatureAlgorithm;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Auther</span>: Yang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2019/9/4 13:10</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JwtUtils</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String SECRET = <span class="string">"mySecret"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Long EXPIRATION_REMEMBER = <span class="number">604800L</span> * <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">     * 生成token</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> openId</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">createToken</span><span class="params">(String openId)</span> </span>&#123;</span><br><span class="line">        HashMap&lt;String, Object&gt; claim = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        claim.put(<span class="string">"openId"</span>, openId);</span><br><span class="line">        <span class="keyword">return</span> Jwts.builder()</span><br><span class="line">                .signWith(SignatureAlgorithm.HS256, SECRET)<span class="comment">//设置签名算法和签名密码</span></span><br><span class="line">                .setClaims(claim)<span class="comment">//设置自定义数据</span></span><br><span class="line">                .setIssuer(<span class="string">"yang"</span>)<span class="comment">//设置签发人</span></span><br><span class="line">                .setIssuedAt(<span class="keyword">new</span> Date())<span class="comment">//设置签发时间</span></span><br><span class="line">                .setExpiration(<span class="keyword">new</span> Date(System.currentTimeMillis() + EXPIRATION_REMEMBER))<span class="comment">//设置过期时间</span></span><br><span class="line">                .compact();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">     * 通过token先获取claims然后从claims中获取openid</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> token</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getOpenId</span><span class="params">(String token)</span> </span>&#123;</span><br><span class="line">        Claims claims = getClaimsFromToken(token);</span><br><span class="line">        <span class="keyword">if</span>(claims != <span class="keyword">null</span>)&#123;</span><br><span class="line">            String openId = (String) claims.get(<span class="string">"openId"</span>);  <span class="comment">//try catch</span></span><br><span class="line">            <span class="keyword">return</span> openId;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">     * 通过secret获取token中的claim</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> token</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Claims <span class="title">getClaimsFromToken</span><span class="params">(String token)</span> </span>&#123;</span><br><span class="line">        Claims claims;</span><br><span class="line">        claims = Jwts.parser()</span><br><span class="line">                    .setSigningKey(SECRET)</span><br><span class="line">                    .parseClaimsJws(token)</span><br><span class="line">                    .getBody();</span><br><span class="line">        <span class="keyword">return</span> claims == <span class="keyword">null</span> ? <span class="keyword">null</span> : claims;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">     * 验证token是否过期</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> token</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Boolean <span class="title">validateToken</span><span class="params">(String token)</span></span>&#123;</span><br><span class="line">        Claims claims = getClaimsFromToken(token);</span><br><span class="line">        Date expiration = claims.getExpiration();</span><br><span class="line">        <span class="keyword">return</span> expiration.after(<span class="keyword">new</span> Date());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="controller"><a href="#controller" class="headerlink" title="controller"></a>controller</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"token"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getToken</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String token = JwtUtils.createToken(<span class="string">"yb"</span>);</span><br><span class="line">    <span class="keyword">return</span> token;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"checktoken"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> ResponseEntity <span class="title">checkToken</span><span class="params">(HttpServletRequest request)</span> </span>&#123;</span><br><span class="line">    HashMap&lt;Object, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    String token = request.getHeader(<span class="string">"jwtToken"</span>);</span><br><span class="line">    System.out.println(token);</span><br><span class="line">    <span class="keyword">if</span> (token !=<span class="keyword">null</span> &amp;&amp; !token.isEmpty()) &#123;</span><br><span class="line">        <span class="comment">//校验token是否过期，若过期，则重新登录，否则获取openId</span></span><br><span class="line">        <span class="keyword">if</span> (JwtUtils.validateToken(token)) &#123;</span><br><span class="line">            map.put(<span class="string">"success"</span>, <span class="string">"验证成功"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ResponseEntity(map, HttpStatus.OK);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            map.put(<span class="string">"error"</span>, <span class="string">"token失效"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ResponseEntity(map, HttpStatus.UNAUTHORIZED);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        map.put(<span class="string">"error"</span>, <span class="string">"token为空"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ResponseEntity(map, HttpStatus.UNAUTHORIZED);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -447,6 +448,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/09/07/mybatis-generator/" rel="prev" title="mybatis_generator">
+                mybatis_generator <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -504,7 +509,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -531,7 +536,9 @@
         
           
         
-        <span class="site-state-item-count">6</span>
+          
+        
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -572,7 +579,11 @@
         
           
         
-        <span class="site-state-item-count">13</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -649,8 +660,8 @@
         <span class="post-meta-item-text">站点总字数：</span>
       
   	<span title="post.totalcount">
-       16.2k字</span>
-      <!--<span title="站点总字数">102k</span>-->
+       17.4k字</span>
+      <!--<span title="站点总字数">109k</span>-->
     
 <span id="sitetime"></span>
 <script language=javascript>
@@ -774,6 +785,23 @@
 
 
 
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '9001e50efd1e3dd5e3c4',
+      clientSecret: '8a2e9aecd4f201345d1a6af281db73c65cb482c8',
+      repo: 'blogComment',
+      owner: 'yb-hub',
+      admin: ['yb-hub'],
+      id: location.pathname,
+      distraction_free_mode: 'true'
+    })
+	console.log(gitalk)
+    gitalk.render('gitalk-container')
+  </script>
 
 
 
