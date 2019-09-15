@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/yingmu-32.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/yingmu-32.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/yingmu-16.ico?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    save_scroll: false,
+    copycode: {"enable":true,"show_result":true,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="Shiro相关过滤器">
+<meta name="keywords" content="SpringBoot,Shiro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springboot-shiro">
+<meta property="og:url" content="https://http://ybhub.gitee.io/2019/09/15/springboot-shiro/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="Shiro相关过滤器">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://http/2019/09/15/springboot-shiro/shiro1.png">
+<meta property="og:updated_time" content="2019-09-15T13:02:41.988Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="springboot-shiro">
+<meta name="twitter:description" content="Shiro相关过滤器">
+<meta name="twitter:image" content="https://http/2019/09/15/springboot-shiro/shiro1.png">
+  <link rel="canonical" href="https://http://ybhub.gitee.io/2019/09/15/springboot-shiro/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>springboot-shiro | Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+<div class="bg_content">
+  <canvas id="canvas"></canvas>
+</div>
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/yb-hub" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://http://ybhub.gitee.io/2019/09/15/springboot-shiro/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="麻辣香锅不要辣">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">springboot-shiro
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-15 08:45:14 / 修改时间：21:02:41" itemprop="dateCreated datePublished" datetime="2019-09-15T08:45:14+08:00">2019-09-15</time>
+            </span>
+          
+            
+
+            
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/SpringBoot/Shiro/" itemprop="url" rel="index"><span itemprop="name">Shiro</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+            <span class="post-meta-divider"></span>
+          
+
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>17k</span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="Shiro相关过滤器"><a href="#Shiro相关过滤器" class="headerlink" title="Shiro相关过滤器"></a>Shiro相关过滤器</h3><img src="/2019/09/15/springboot-shiro/shiro1.png">
+<a id="more"></a>
+<h3 id="ShiroConfig"><a href="#ShiroConfig" class="headerlink" title="ShiroConfig"></a>ShiroConfig</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShiroConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ShiroFilterFactoryBean <span class="title">shiroFilterFactoryBean</span><span class="params">(SecurityManager securityManager)</span> </span>&#123;</span><br><span class="line">        ShiroFilterFactoryBean shiroFilterFactoryBean = <span class="keyword">new</span> ShiroFilterFactoryBean();</span><br><span class="line">        shiroFilterFactoryBean.setSecurityManager(securityManager);</span><br><span class="line">        Map&lt;String, String&gt; filterChainDefinitionMap = <span class="keyword">new</span> LinkedHashMap&lt;String, String&gt;();</span><br><span class="line">        <span class="comment">//自定义拦截配置，OPTIONS请求直接返回true</span></span><br><span class="line"><span class="comment">//        HashMap&lt;String, Filter&gt; filters = new HashMap&lt;&gt;();</span></span><br><span class="line"><span class="comment">//        filters.put("custom", new ShiroUserFilter());</span></span><br><span class="line"><span class="comment">//        shiroFilterFactoryBean.setFilters(filters);</span></span><br><span class="line"></span><br><span class="line">        filterChainDefinitionMap.put(<span class="string">"/admin/login"</span>, <span class="string">"anon"</span>);</span><br><span class="line">        filterChainDefinitionMap.put(<span class="string">"/admin/auth/401"</span>, <span class="string">"anon"</span>);</span><br><span class="line">        filterChainDefinitionMap.put(<span class="string">"/admin/auth/index"</span>, <span class="string">"anon"</span>);</span><br><span class="line">        filterChainDefinitionMap.put(<span class="string">"/admin/auth/403"</span>, <span class="string">"anon"</span>);</span><br><span class="line">        filterChainDefinitionMap.put(<span class="string">"/admin/index/index"</span>, <span class="string">"anon"</span>);</span><br><span class="line">        filterChainDefinitionMap.put(<span class="string">"/admin/test1"</span>, <span class="string">"authc"</span>);</span><br><span class="line">        filterChainDefinitionMap.put(<span class="string">"/admin/test2"</span>, <span class="string">"roles[admin]"</span>);</span><br><span class="line">        filterChainDefinitionMap.put(<span class="string">"/**"</span>, <span class="string">"anon"</span>);</span><br><span class="line"></span><br><span class="line">        shiroFilterFactoryBean.setLoginUrl(<span class="string">"/admin/auth/401"</span>);</span><br><span class="line">        shiroFilterFactoryBean.setSuccessUrl(<span class="string">"/admin/auth/index"</span>);</span><br><span class="line">        shiroFilterFactoryBean.setUnauthorizedUrl(<span class="string">"/admin/auth/403"</span>);</span><br><span class="line">        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);</span><br><span class="line">        <span class="keyword">return</span> shiroFilterFactoryBean;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Realm <span class="title">realm</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AdminAuthorizingRealm();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="登录流程"><a href="#登录流程" class="headerlink" title="登录流程"></a>登录流程</h3><p>1.login</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">login</span><span class="params">(String username, String password, HttpServletRequest request)</span> </span>&#123;</span><br><span class="line">    Subject currentUser = SecurityUtils.getSubject();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        currentUser.login(<span class="keyword">new</span> UsernamePasswordToken(username, password));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (UnknownAccountException uae) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"用户帐号或密码不正确"</span>;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (LockedAccountException lae) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"用户帐号已锁定不可用"</span>;</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">catch</span> (AuthenticationException ae) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"认证失败"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"login success"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过SecurityUtils.getSubject获取当前主体</li>
+<li>然后将用户名和密码分装为UsernamePasswordToken</li>
+<li>调用login方法</li>
+</ul>
+<p>2.DefaultSecurityManager</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Subject <span class="title">login</span><span class="params">(Subject subject, AuthenticationToken token)</span> <span class="keyword">throws</span> AuthenticationException </span>&#123;</span><br><span class="line">        AuthenticationInfo info;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            info = authenticate(token);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (AuthenticationException ae) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                onFailedLogin(token, ae, subject);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                <span class="keyword">if</span> (log.isInfoEnabled()) &#123;</span><br><span class="line">                    log.info(<span class="string">"onFailedLogin method threw an "</span> +</span><br><span class="line">                            <span class="string">"exception.  Logging and propagating original AuthenticationException."</span>, e);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">throw</span> ae; <span class="comment">//propagate</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Subject loggedIn = createSubject(token, info, subject);</span><br><span class="line"></span><br><span class="line">        onSuccessfulLogin(token, info, loggedIn);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> loggedIn;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>调用authenticate（token）</li>
+</ul>
+<p>3.AbstractAuthenticator</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> AuthenticationInfo <span class="title">authenticate</span><span class="params">(AuthenticationToken token)</span> <span class="keyword">throws</span> AuthenticationException </span>&#123;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (token == <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Method argument (authentication token) cannot be null."</span>);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       log.trace(<span class="string">"Authentication attempt received for token [&#123;&#125;]"</span>, token);</span><br><span class="line"></span><br><span class="line">       AuthenticationInfo info;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           info = doAuthenticate(token);</span><br><span class="line">           <span class="keyword">if</span> (info == <span class="keyword">null</span>) &#123;</span><br><span class="line">               <span class="keyword">throw</span> <span class="keyword">new</span> AuthenticationException(msg);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">           AuthenticationException ae = <span class="keyword">null</span>;</span><br><span class="line">           <span class="keyword">if</span> (t <span class="keyword">instanceof</span> AuthenticationException) &#123;</span><br><span class="line">               ae = (AuthenticationException) t;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">if</span> (ae == <span class="keyword">null</span>) &#123;</span><br><span class="line">               ae = <span class="keyword">new</span> AuthenticationException(msg, t);</span><br><span class="line">               <span class="keyword">if</span> (log.isWarnEnabled())</span><br><span class="line">                   log.warn(msg, t);</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">try</span> &#123;</span><br><span class="line">               notifyFailure(token, ae);</span><br><span class="line">           &#125; <span class="keyword">catch</span> (Throwable t2) &#123;</span><br><span class="line">               <span class="keyword">if</span> (log.isWarnEnabled()) &#123;</span><br><span class="line">                   log.warn(msg, t2);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">throw</span> ae;</span><br><span class="line">       &#125;</span><br><span class="line">       notifySuccess(token, info);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> info;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.ModularRealmAuthenticator</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> AuthenticationInfo <span class="title">doAuthenticate</span><span class="params">(AuthenticationToken authenticationToken)</span> <span class="keyword">throws</span> AuthenticationException </span>&#123;</span><br><span class="line">    assertRealmsConfigured();</span><br><span class="line">    Collection&lt;Realm&gt; realms = getRealms();</span><br><span class="line">    <span class="keyword">if</span> (realms.size() == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> doSingleRealmAuthentication(realms.iterator().next(), authenticationToken);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> doMultiRealmAuthentication(realms, authenticationToken);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>5.AuthenticatingRealm</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> AuthenticationInfo <span class="title">getAuthenticationInfo</span><span class="params">(AuthenticationToken token)</span> <span class="keyword">throws</span> AuthenticationException </span>&#123;</span><br><span class="line"></span><br><span class="line">        AuthenticationInfo info = getCachedAuthenticationInfo(token);</span><br><span class="line">        <span class="keyword">if</span> (info == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//otherwise not cached, perform the lookup:</span></span><br><span class="line">            <span class="comment">//获取用户信息</span></span><br><span class="line">            info = doGetAuthenticationInfo(token);</span><br><span class="line">            log.debug(<span class="string">"Looked up AuthenticationInfo [&#123;&#125;] from doGetAuthenticationInfo"</span>, info);</span><br><span class="line">            <span class="keyword">if</span> (token != <span class="keyword">null</span> &amp;&amp; info != <span class="keyword">null</span>) &#123;</span><br><span class="line">                cacheAuthenticationInfoIfPossible(token, info);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            log.debug(<span class="string">"Using cached authentication info [&#123;&#125;] to perform credentials matching."</span>, info);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (info != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//此处将获取的用户信息和用户提交的信息做比对</span></span><br><span class="line">            assertCredentialsMatch(token, info);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            log.debug(<span class="string">"No AuthenticationInfo found for submitted AuthenticationToken [&#123;&#125;].  Returning null."</span>, token);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> info;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>先从内存中获取</li>
+<li>如果内存中为null，就执行自定义的realm中的doGetAuthenticationInfo方法进行认证。</li>
+</ul>
+<p>6.AdminAuthorizingRealm(自定义Realm)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AdminAuthorizingRealm</span> <span class="keyword">extends</span> <span class="title">AuthorizingRealm</span> </span>&#123;</span><br><span class="line">    <span class="comment">//授权</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> AuthorizationInfo <span class="title">doGetAuthorizationInfo</span><span class="params">(PrincipalCollection principals)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (principals == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> AuthorizationException(<span class="string">"PrincipalCollection method argument cannot be null."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Set&lt;String&gt; roles = <span class="keyword">new</span> HashSet&lt;&gt;();  <span class="comment">//从数据库中查询出roles</span></span><br><span class="line">        Set&lt;String&gt; permissions = <span class="keyword">new</span> HashSet&lt;&gt;();<span class="comment">//从数据库中查询出permissions</span></span><br><span class="line">        SimpleAuthorizationInfo info = <span class="keyword">new</span> SimpleAuthorizationInfo();</span><br><span class="line">        info.setRoles(roles);</span><br><span class="line">        info.setStringPermissions(permissions);</span><br><span class="line">        <span class="keyword">return</span> info;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//认证</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> AuthenticationInfo <span class="title">doGetAuthenticationInfo</span><span class="params">(AuthenticationToken token)</span> <span class="keyword">throws</span> AuthenticationException </span>&#123;</span><br><span class="line"></span><br><span class="line">        UsernamePasswordToken upToken = (UsernamePasswordToken) token;</span><br><span class="line">        String username = upToken.getUsername();</span><br><span class="line">        String password = <span class="keyword">new</span> String(upToken.getPassword());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isEmpty(username)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> AccountException(<span class="string">"用户名不能为空"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isEmpty(password)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> AccountException(<span class="string">"密码不能为空"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        String password2 = <span class="string">"password2"</span>;<span class="comment">//从数据库中查找</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//principal:用户主体（代表用户，可用id,username,或者一个实例对象）</span></span><br><span class="line">        <span class="comment">//credentials:用户凭证（使用从数据库中查询出来的密码）</span></span><br><span class="line">        <span class="comment">//realmName:获取主体和凭据的域：调用父类方法getName()即可获得。</span></span><br><span class="line">        <span class="comment">//这里生成的SimpleAuthenticationInfo</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SimpleAuthenticationInfo(username, password2, getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这里会从数据库中根据username查询出对象，并生成一个SimpleAuthenticationInfo返回。用于和用户提交的username和password做比对。（为什么这里不直接判断一下密码是否正确呢？）</li>
+</ul>
+<p>7.返回了SimpleAuthenticationInfo之后，继续返回到AuthenticatingRealm，进行用户信息校验。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">assertCredentialsMatch</span><span class="params">(AuthenticationToken token, AuthenticationInfo info)</span> <span class="keyword">throws</span> AuthenticationException </span>&#123;</span><br><span class="line">       CredentialsMatcher cm = getCredentialsMatcher();</span><br><span class="line">       <span class="keyword">if</span> (cm != <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">if</span> (!cm.doCredentialsMatch(token, info)) &#123;</span><br><span class="line">               <span class="comment">//not successful - throw an exception to indicate this:</span></span><br><span class="line">               String msg = <span class="string">"Submitted credentials for token ["</span> + token + <span class="string">"] did not match the expected credentials."</span>;</span><br><span class="line">               <span class="keyword">throw</span> <span class="keyword">new</span> IncorrectCredentialsException(msg);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> AuthenticationException(<span class="string">"A CredentialsMatcher must be configured in order to verify "</span> +</span><br><span class="line">                   <span class="string">"credentials during authentication.  If you do not wish for credentials to be examined, you "</span> +</span><br><span class="line">                   <span class="string">"can configure an "</span> + AllowAllCredentialsMatcher.class.getName() + <span class="string">" instance."</span>);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>8.SimpleCredentialsMatcher</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">doCredentialsMatch</span><span class="params">(AuthenticationToken token, AuthenticationInfo info)</span> </span>&#123;</span><br><span class="line">    Object tokenCredentials = getCredentials(token);</span><br><span class="line">    Object accountCredentials = getCredentials(info);</span><br><span class="line">    <span class="keyword">return</span> equals(tokenCredentials, accountCredentials);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>先获取用户提交的password</li>
+<li>再获取从数据库中查询出来的password</li>
+<li>进行校验</li>
+</ul>
+<p>9.校验成功之后，回到最初的DefaultSecurityManager</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Subject loggedIn = createSubject(token, info, subject);</span><br><span class="line"></span><br><span class="line">       onSuccessfulLogin(token, info, loggedIn);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> loggedIn;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这里会创建一个Subject(主体)</li>
+</ul>
+<h3 id="authc认证"><a href="#authc认证" class="headerlink" title="authc认证"></a>authc认证</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filterChainDefinitionMap.put(<span class="string">"/admin/test1"</span>, <span class="string">"authc"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>1.AccessControlFilter</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onPreHandle</span><span class="params">(ServletRequest request, ServletResponse response, Object mappedValue)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> isAccessAllowed(request, response, mappedValue) || onAccessDenied(request, response, mappedValue);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.AuthenticatingFilter</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">isAccessAllowed</span><span class="params">(ServletRequest request, ServletResponse response, Object mappedValue)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.isAccessAllowed(request, response, mappedValue) ||</span><br><span class="line">            (!isLoginRequest(request, response) &amp;&amp; isPermissive(mappedValue));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.AuthenticationFilter</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">isAccessAllowed</span><span class="params">(ServletRequest request, ServletResponse response, Object mappedValue)</span> </span>&#123;</span><br><span class="line">    Subject subject = getSubject(request, response);</span><br><span class="line">    <span class="keyword">return</span> subject.isAuthenticated();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>首先通过isAccessAllowed方法判断是否已经授权</li>
+<li>如果没有授权，就调用FormAuthenticationFilter中的onAccessDenied方法。<ul>
+<li>如果是login请求：就执行登录</li>
+<li>如果不是，就重定向到之前设定的loginUrl</li>
+</ul>
+</li>
+</ul>
+<p>4.FormAuthenticationFilter</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">onAccessDenied</span><span class="params">(ServletRequest request, ServletResponse response)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (isLoginRequest(request, response)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (isLoginSubmission(request, response)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (log.isTraceEnabled()) &#123;</span><br><span class="line">                log.trace(<span class="string">"Login submission detected.  Attempting to execute login."</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> executeLogin(request, response);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (log.isTraceEnabled()) &#123;</span><br><span class="line">                log.trace(<span class="string">"Login page view."</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//allow them to see the login page ;)</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (log.isTraceEnabled()) &#123;</span><br><span class="line">            log.trace(<span class="string">"Attempting to access a path which requires authentication.  Forwarding to the "</span> +</span><br><span class="line">                    <span class="string">"Authentication url ["</span> + getLoginUrl() + <span class="string">"]"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        saveRequestAndRedirectToLogin(request, response);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="授权过程"><a href="#授权过程" class="headerlink" title="授权过程"></a>授权过程</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filterChainDefinitionMap.put(<span class="string">"/admin/test2"</span>, <span class="string">"roles[admin]"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>1.AccessControlFilter</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onPreHandle</span><span class="params">(ServletRequest request, ServletResponse response, Object mappedValue)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> isAccessAllowed(request, response, mappedValue) || onAccessDenied(request, response, mappedValue);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.RolesAuthorizationFilter</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAccessAllowed</span><span class="params">(ServletRequest request, ServletResponse response, Object mappedValue)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">        Subject subject = getSubject(request, response);</span><br><span class="line">        String[] rolesArray = (String[]) mappedValue;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (rolesArray == <span class="keyword">null</span> || rolesArray.length == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">//no roles specified, so nothing to check - allow access.</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Set&lt;String&gt; roles = CollectionUtils.asSet(rolesArray);</span><br><span class="line">        <span class="keyword">return</span> subject.hasAllRoles(roles);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>获取需要的角色</li>
+</ul>
+<p>3.DelegatingSubject</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasAllRoles</span><span class="params">(Collection&lt;String&gt; roleIdentifiers)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> hasPrincipals() &amp;&amp; securityManager.hasAllRoles(getPrincipals(), roleIdentifiers);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.AuthorzingSecurityManager</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasAllRoles</span><span class="params">(PrincipalCollection principals, Collection&lt;String&gt; roleIdentifiers)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.authorizer.hasAllRoles(principals, roleIdentifiers);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.ModularRealmAuthorizer</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasAllRoles</span><span class="params">(PrincipalCollection principals, Collection&lt;String&gt; roleIdentifiers)</span> </span>&#123;</span><br><span class="line">    assertRealmsConfigured();</span><br><span class="line">    <span class="keyword">for</span> (String roleIdentifier : roleIdentifiers) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!hasRole(principals, roleIdentifier)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasRole</span><span class="params">(PrincipalCollection principals, String roleIdentifier)</span> </span>&#123;</span><br><span class="line">    assertRealmsConfigured();</span><br><span class="line">    <span class="keyword">for</span> (Realm realm : getRealms()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!(realm <span class="keyword">instanceof</span> Authorizer)) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span> (((Authorizer) realm).hasRole(principals, roleIdentifier)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这里会遍历realms</li>
+</ul>
+<p>5.AuthorizingRealm</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasRole</span><span class="params">(PrincipalCollection principal, String roleIdentifier)</span> </span>&#123;</span><br><span class="line">    AuthorizationInfo info = getAuthorizationInfo(principal);</span><br><span class="line">    <span class="keyword">return</span> hasRole(roleIdentifier, info);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">hasRole</span><span class="params">(String roleIdentifier, AuthorizationInfo info)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> info != <span class="keyword">null</span> &amp;&amp; info.getRoles() != <span class="keyword">null</span> &amp;&amp; info.getRoles().contains(roleIdentifier);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>和之前的认证一样，也会先从内存中寻找，没有的话就从自定义的realm中调用doGetAuthorizationInfo获取授权信息。<br>6.AdminAuthorizingRealm</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AdminAuthorizingRealm</span> <span class="keyword">extends</span> <span class="title">AuthorizingRealm</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> AuthorizationInfo <span class="title">doGetAuthorizationInfo</span><span class="params">(PrincipalCollection principals)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (principals == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> AuthorizationException(<span class="string">"PrincipalCollection method argument cannot be null."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Set&lt;String&gt; roles = <span class="keyword">new</span> HashSet&lt;&gt;();  <span class="comment">//从数据库中查询出roles</span></span><br><span class="line">        Set&lt;String&gt; permissions = <span class="keyword">new</span> HashSet&lt;&gt;();<span class="comment">//从数据库中查询出permissions</span></span><br><span class="line">        SimpleAuthorizationInfo info = <span class="keyword">new</span> SimpleAuthorizationInfo();</span><br><span class="line">        info.setRoles(roles);</span><br><span class="line">        info.setStringPermissions(permissions);</span><br><span class="line">        <span class="keyword">return</span> info;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>主要是RolesAuthorizationFilter中的isAccessAllowed方法、</li>
+</ul>
+<h3 id="加密（加盐）"><a href="#加密（加盐）" class="headerlink" title="加密（加盐）"></a>加密（加盐）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Realm <span class="title">realm</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    AdminAuthorizingRealm realm = <span class="keyword">new</span> AdminAuthorizingRealm();</span><br><span class="line">    HashedCredentialsMatcher credentialsMatcher = <span class="keyword">new</span> HashedCredentialsMatcher();</span><br><span class="line">    credentialsMatcher.setHashAlgorithmName(<span class="string">"SHA-256"</span>);<span class="comment">//加密算法</span></span><br><span class="line">    credentialsMatcher.setHashIterations(<span class="number">1024</span>);<span class="comment">//加密次数</span></span><br><span class="line">    realm.setCredentialsMatcher(credentialsMatcher);</span><br><span class="line">    <span class="keyword">return</span> realm;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> AuthenticationInfo <span class="title">doGetAuthenticationInfo</span><span class="params">(AuthenticationToken token)</span> <span class="keyword">throws</span> AuthenticationException </span>&#123;</span><br><span class="line"></span><br><span class="line">    UsernamePasswordToken upToken = (UsernamePasswordToken) token;</span><br><span class="line">    String username = upToken.getUsername();</span><br><span class="line">    String password = <span class="keyword">new</span> String(upToken.getPassword());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (StringUtils.isEmpty(username)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> AccountException(<span class="string">"用户名不能为空"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (StringUtils.isEmpty(password)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> AccountException(<span class="string">"密码不能为空"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//19e0ab03098e9ffb6485df82d85307e998b799d23c3d77b9e47fce4bb2575b6d</span></span><br><span class="line">    String password2 = <span class="string">"19e0ab03098e9ffb6485df82d85307e998b799d23c3d77b9e47fce4bb2575b6d"</span>;<span class="comment">//从数据库中查找</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//principal:用户主体（代表用户，可用id,username,或者一个实例对象）</span></span><br><span class="line">    <span class="comment">//credentials:用户凭证（使用从数据库中查询出来的密码）</span></span><br><span class="line">    <span class="comment">//realmName:获取主体和凭据的域：调用父类方法getName()即可获得。</span></span><br><span class="line">    <span class="comment">//这里生成的SimpleAuthenticationInfo</span></span><br><span class="line">    <span class="comment">//使用username当做salt</span></span><br><span class="line">    ByteSource salt = ByteSource.Util.bytes(username);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> SimpleAuthenticationInfo(username, password2, salt,getName());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在自定义realm的父类AuthenticatingRealm中，有个CredentialsMatcher credentialsMatcher属性，这就是指定加密算法的属性，默认为SimpleCredentialsMatcher。</li>
+<li>在生成SimpleAuthenticatinInfo对象时，将salt传入。</li>
+<li>HashedCredentialsMatcher中的hashProvidedCredentials方法中会使用该salt为用户提交的密码进行加密（和数据库中查询出来的已加密的密码比较）<br>HashedCredentialsMatcher<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">doCredentialsMatch</span><span class="params">(AuthenticationToken token, AuthenticationInfo info)</span> </span>&#123;</span><br><span class="line">    Object tokenHashedCredentials = hashProvidedCredentials(token, info);</span><br><span class="line">    Object accountCredentials = getCredentials(info);</span><br><span class="line">    <span class="keyword">return</span> equals(tokenHashedCredentials, accountCredentials);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> Object <span class="title">hashProvidedCredentials</span><span class="params">(AuthenticationToken token, AuthenticationInfo info)</span> </span>&#123;</span><br><span class="line">    Object salt = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (info <span class="keyword">instanceof</span> SaltedAuthenticationInfo) &#123;</span><br><span class="line">        salt = ((SaltedAuthenticationInfo) info).getCredentialsSalt();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//retain 1.0 backwards compatibility:</span></span><br><span class="line">        <span class="keyword">if</span> (isHashSalted()) &#123;</span><br><span class="line">            salt = getSalt(token);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> hashProvidedCredentials(token.getCredentials(), salt, getHashIterations());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> Object <span class="title">getCredentials</span><span class="params">(AuthenticationInfo info)</span> </span>&#123;</span><br><span class="line">    Object credentials = info.getCredentials();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">byte</span>[] storedBytes = toBytes(credentials);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (credentials <span class="keyword">instanceof</span> String || credentials <span class="keyword">instanceof</span> <span class="keyword">char</span>[]) &#123;</span><br><span class="line">        <span class="comment">//account.credentials were a char[] or String, so</span></span><br><span class="line">        <span class="comment">//we need to do text decoding first:</span></span><br><span class="line">        <span class="keyword">if</span> (isStoredCredentialsHexEncoded()) &#123;</span><br><span class="line">            storedBytes = Hex.decode(storedBytes);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            storedBytes = Base64.decode(storedBytes);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    AbstractHash hash = newHashInstance();</span><br><span class="line">    hash.setBytes(storedBytes);</span><br><span class="line">    <span class="keyword">return</span> hash;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+      
+    
+
+
+    
+    
+    
+<div>
+    
+    ﻿
+<div style="text-align:center;color: #666;font-size:14px;">
+    ------ 已触及底线<i class="fa fa-paw"></i>感谢您的阅读 ------</div>
+
+    
+ </div>
+      
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="麻辣香锅不要辣 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+      </div>
+    
+      <div>
+        
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>麻辣香锅不要辣</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://http://ybhub.gitee.io/2019/09/15/springboot-shiro/" title="springboot-shiro">https://http://ybhub.gitee.io/2019/09/15/springboot-shiro/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/SpringBoot/" rel="tag"># SpringBoot</a>
+          
+            <a href="/tags/Shiro/" rel="tag"># Shiro</a>
+          
+        </div>
+      
+      
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/07/mybatis-generator/" rel="next" title="mybatis_generator">
+                <i class="fa fa-chevron-left"></i> mybatis_generator
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.jpg"
+      alt="麻辣香锅不要辣">
+  <p class="site-author-name" itemprop="name">麻辣香锅不要辣</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/yb-hub" title="GitHub &rarr; https://github.com/yb-hub" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.jianshu.com/u/5b862e6348b0" title="简书 &rarr; https://www.jianshu.com/u/5b862e6348b0" rel="noopener" target="_blank"><i class="fa fa-fw fa-crosshairs"></i>简书</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Shiro相关过滤器"><span class="nav-number">1.</span> <span class="nav-text">Shiro相关过滤器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ShiroConfig"><span class="nav-number">2.</span> <span class="nav-text">ShiroConfig</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#登录流程"><span class="nav-number">3.</span> <span class="nav-text">登录流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#authc认证"><span class="nav-number">4.</span> <span class="nav-text">authc认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#授权过程"><span class="nav-number">5.</span> <span class="nav-text">授权过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加密（加盐）"><span class="nav-number">6.</span> <span class="nav-text">加密（加盐）</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">麻辣香锅不要辣</span>
+    
+      <span class="post-meta-divider">|</span>
+      <span class="post-meta-item-icon">
+        <i class="fa fa-area-chart"></i>
+      </span>
+      
+        <span class="post-meta-item-text">站点总字数：</span>
+      
+  	<span title="post.totalcount">
+       19.5k字</span>
+      <!--<span title="站点总字数">126k</span>-->
+    
+<span id="sitetime"></span>
+<script language=javascript>
+  function siteTime(){
+    window.setTimeout("siteTime()", 1000);
+    var seconds = 1000;
+    var minutes = seconds * 60;
+    var hours = minutes * 60;
+    var days = hours * 24;
+    var years = days * 365;
+    var today = new Date();
+    var todayYear = today.getFullYear();
+    var todayMonth = today.getMonth()+1;
+    var todayDate = today.getDate();
+    var todayHour = today.getHours();
+    var todayMinute = today.getMinutes();
+    var todaySecond = today.getSeconds();
+    var t1 = Date.UTC(2018,06,07,12,00,00); // 设置建立网站的时间
+    var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+    var diff = t2-t1;
+    var diffYears = Math.floor(diff/years);
+    var diffDays = Math.floor((diff/days)-diffYears*365);
+    var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+    var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+    var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+    document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+  }
+  siteTime();
+</script>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '9001e50efd1e3dd5e3c4',
+      clientSecret: '8a2e9aecd4f201345d1a6af281db73c65cb482c8',
+      repo: 'blogComment',
+      owner: 'yb-hub',
+      admin: ['yb-hub'],
+      id: location.pathname,
+      distraction_free_mode: 'true'
+    })
+	console.log(gitalk)
+    gitalk.render('gitalk-container')
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '9001e50efd1e3dd5e3c4',
+      clientSecret: '8a2e9aecd4f201345d1a6af281db73c65cb482c8',
+      repo: 'blogComment',
+      owner: 'yb-hub',
+      admin: ['yb-hub'],
+      id: location.pathname,
+      distraction_free_mode: 'true'
+    })
+	console.log(gitalk)
+    gitalk.render('gitalk-container')
+  </script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>
+<!-- ҳ����С���� -->
+<script type="text/javascript" src="/js/myjs/love.js"></script>
+<script type="text/javascript" src="/js/myjs/dynamic_bg.js"></script>
