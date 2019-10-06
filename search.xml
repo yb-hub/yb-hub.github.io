@@ -4,6 +4,83 @@
   
     
     <entry>
+      <title>@mapperScan</title>
+      <link href="/2019/10/06/mapperScan/"/>
+      <url>/2019/10/06/mapperScan/</url>
+      
+        <content type="html"><![CDATA[<h3 id="MapperScan"><a href="#MapperScan" class="headerlink" title="@MapperScan"></a>@MapperScan</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableTransactionManagement</span></span><br><span class="line"><span class="meta">@MapperScan</span>(&#123;<span class="string">"com.mf.mall.mapper"</span>,<span class="string">"com.mf.mall.dao"</span>&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBatisConfig</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>会扫描所有的com.mf.mall.mapper和com.mf.mall.dao下的文件（包括依赖的jar中的）</p><a id="more"></a><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Import</span>(MapperScannerRegistrar.class)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MapperScan &#123;&#125;</span><br></pre></td></tr></table></figure><h3 id="MapperScannerRegistrar"><a href="#MapperScannerRegistrar" class="headerlink" title="MapperScannerRegistrar"></a>MapperScannerRegistrar</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scanner.registerFilters();</span><br><span class="line">scanner.doScan(StringUtils.toStringArray(basePackages));</span><br></pre></td></tr></table></figure><h3 id="scanCandidateComponents方法"><a href="#scanCandidateComponents方法" class="headerlink" title="scanCandidateComponents方法"></a>scanCandidateComponents方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX +</span><br><span class="line">resolveBasePackage(basePackage) + <span class="string">'/'</span> + <span class="keyword">this</span>.resourcePattern;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">classpath*:com/mf/mall/mapper/**/*.class</span><br></pre></td></tr></table></figure><p>classpath和classpath*区别：</p><p>classpath：只会到你的class路径中查找找文件。</p><p>classpath*：不仅包含class路径，还包括jar文件中（class路径）进行查找。</p><p>此时已经扫描到了所有的mapper,那么如何配置mapper映射文件呢？</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mybatis:</span></span><br><span class="line"><span class="attr">  mapper-locations:</span></span><br><span class="line"><span class="attr">    - classpath:</span><span class="string">dao/*.xml</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">classpath*:com/**/mapper/*.xml</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> SpringBoot </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> SpringBoot </tag>
+            
+            <tag> mapperScan </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>git</title>
+      <link href="/2019/10/06/git/"/>
+      <url>/2019/10/06/git/</url>
+      
+        <content type="html"><![CDATA[<h3 id="git-fetch和git-pull区别"><a href="#git-fetch和git-pull区别" class="headerlink" title="git fetch和git pull区别"></a>git fetch和git pull区别</h3><ul><li>git pull是git fetch 和 git merge的组合</li><li>git fetch：就是把远程的更新都拉取到本地，但是内容不会更新，打个比方，就是把commit的记录都拿过来了，<br>但是本地还是停留在原来的位置，没有移动到最新的提交处</li><li>git pull：把远程的更新都拉取到本地，并移动到最新的提交处（此处可能有冲突，如果本地没有commit过，也就是说还是停留在原地，<br>那么就可以fast-merge，如果本地commit过了，就等于说是离开了原地，那么可能就会产生不可fast-merge的冲突，需要自己手动merge）</li></ul><h3 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a>git push</h3><ul><li>git push的时候：要是远程还在原地（原地：就是git pull后，远程没有commit过），那么可以直接push</li><li>要是远程没有在原地了，就需要git pull一下，更新本地到最新处，然后merge冲突，然后git add 再 git commit 最后git push</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker</title>
+      <link href="/2019/10/06/docker/"/>
+      <url>/2019/10/06/docker/</url>
+      
+        <content type="html"><![CDATA[<h3 id="配置镜像源"><a href="#配置镜像源" class="headerlink" title="配置镜像源"></a>配置镜像源</h3><p>使用阿里云的镜像加速器，配置在/etc/docker/daemon.json</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"registry-mirrors"</span>: [<span class="string">"xxx"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="启动docker"><a href="#启动docker" class="headerlink" title="启动docker"></a>启动docker</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker.service</span><br></pre></td></tr></table></figure><a id="more"></a><h3 id="搜索镜像"><a href="#搜索镜像" class="headerlink" title="搜索镜像"></a>搜索镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search 镜像名（如：mysql）</span><br></pre></td></tr></table></figure><h3 id="下载镜像"><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull [镜像名]:[版本号]  //不加版本号，默认下载最新的lastest版本</span><br></pre></td></tr></table></figure><h3 id="查看镜像"><a href="#查看镜像" class="headerlink" title="查看镜像"></a>查看镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br><span class="line">`</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                               NAMES</span><br><span class="line">92215d896a9c        tomcat              &quot;catalina.sh run&quot;        About a minute ago   Up About a minute   0.0.0.0:8002-&gt;8080/tcp              mytomcat</span><br></pre></td></tr></table></figure><h3 id="创建容器"><a href="#创建容器" class="headerlink" title="创建容器"></a>创建容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//开启tomcat容器</span><br><span class="line">docker run --name mytomcat -d -p 8002:8080 tomcat  //--name 自定义容器名字 -d 后台运行 -p 宿主主机端口映射到docker端口</span><br><span class="line">//开启mysql容器</span><br><span class="line">docker run --name mysql2 -d -p 3306:3306 -e  MYSQL\_ROOT\_PASSWORD=123456 mysql:5.7</span><br></pre></td></tr></table></figure><h3 id="删除容器（镜像）"><a href="#删除容器（镜像）" class="headerlink" title="删除容器（镜像）"></a>删除容器（镜像）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container rm [容器id]</span><br></pre></td></tr></table></figure><h3 id="批量删除容器-镜像"><a href="#批量删除容器-镜像" class="headerlink" title="批量删除容器(镜像)"></a>批量删除容器(镜像)</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker container rm $(docker container ls -a -q)</span><br><span class="line">docker  image   rm   $(docker  image  ls   -a  -q)</span><br></pre></td></tr></table></figure><p>run命令执行后会自动执行docker create（创建容器）和docker start（开启容器）</p><h3 id="查看所有容器"><a href="#查看所有容器" class="headerlink" title="查看所有容器"></a>查看所有容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container ps -a   //-a 表示所有的（包括已关闭的）</span><br></pre></td></tr></table></figure><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                               NAMES</span><br><span class="line">92215d896a9c        tomcat              "catalina.sh run"        About a minute ago   Up About a minute   0.0.0.0:8002-&gt;8080/tcp              mytomcat</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>springboot-shiro</title>
       <link href="/2019/09/15/springboot-shiro/"/>
       <url>/2019/09/15/springboot-shiro/</url>
